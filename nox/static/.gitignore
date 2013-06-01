@@ -1,5 +1,3 @@
-*.pyc
-/virtual.env
 temp
 dist
 node_modules
