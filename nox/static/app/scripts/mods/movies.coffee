@@ -16,9 +16,9 @@ define [
       rate: ''
       people: ''
       language: ''
-      contries: ''
+      countries: ''
       length: ''
-      type: ''
+      types: ''
       year: ''
       summary: '没有什么电影能满足你了!!（╯‵□′）╯︵'
 
