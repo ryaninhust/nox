@@ -45,7 +45,7 @@
             {{ if (name.length){ }}
             <div class="title">{{= name}}</div>
             <div class="info-action">
-              <button class="like icon"></button>
+              <button class="like icon" data-url="{{= 'http://movie.douban.com/subject/' + id + '/'}}"></button>
               <button class="delete icon"></button>
             </div>
             <div class="info-detail">
@@ -58,7 +58,7 @@
               {{= summary}}
             </div>
             <div class="info-addition-action">
-              <button class="restart icon">&nbsp; 好吧重来</button>
+              <button class="restart icon">&nbsp; 那就重来</button>
             </div>
             {{ } }}
           </div>
