@@ -7,7 +7,7 @@
 
     defaultMoive = {
       noAction: true,
-      cover_url: '/images/sample_cover.jpg',
+      cover_url: '/static/images/sample_cover.jpg',
       id: '0',
       name: '',
       director: '',

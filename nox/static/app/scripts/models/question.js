@@ -22,7 +22,7 @@
           {
             id: '2',
             name: 'aaa',
-            cover_url: '/images/sample_cover.jpg',
+            cover_url: '/static/images/sample_cover.jpg',
             director: 'kk',
             summary: 'xxxxxx'
           }, {
