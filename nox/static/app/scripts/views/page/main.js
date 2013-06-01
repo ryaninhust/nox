@@ -3,7 +3,7 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'jquery', 'lodash', 'backbone', 'views/question', 'views/result', 'mods/movies'], function(app, $, _, Backbone, QuestionView, ResultView, Movies) {
+  define(['app', 'jquery', 'lodash', 'backbone', 'views/question', 'views/movie', 'views/result'], function(app, $, _, Backbone, QuestionView, MovieView, ResultView) {
     var MainPage, _ref;
 
     return MainPage = (function(_super) {
@@ -11,6 +11,7 @@
 
       function MainPage() {
         this.renderResult = __bind(this.renderResult, this);
+        this.renderMoive = __bind(this.renderMoive, this);
         this.renderQuestion = __bind(this.renderQuestion, this);
         this.render = __bind(this.render, this);        _ref = MainPage.__super__.constructor.apply(this, arguments);
         return _ref;
@@ -22,7 +23,7 @@
 
       MainPage.prototype.initialize = function() {
         app.on('getResult', this.renderResult);
-        return app.movies = new Movies;
+        return app.on('getMovies', this.renderMoive);
       };
 
       MainPage.prototype.render = function() {
@@ -33,10 +34,22 @@
       };
 
       MainPage.prototype.renderQuestion = function() {
-        var questionView;
+        var _ref1;
 
-        questionView = new QuestionView();
-        return this.content.empty().append(questionView.render().el);
+        if ((_ref1 = app.questionView) == null) {
+          app.questionView = new QuestionView();
+        }
+        return this.content.find('.bd').empty().append(app.questionView.render().el);
+      };
+
+      MainPage.prototype.renderMoive = function(moviesUrl) {
+        var _ref1;
+
+        if ((_ref1 = app.movieView) == null) {
+          app.movieView = new MovieView();
+        }
+        app.movieView.setUrl(moviesUrl);
+        return this.content.find('.hd').empty().append(app.movieView.render().el);
       };
 
       MainPage.prototype.renderResult = function(option) {
