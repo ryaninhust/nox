@@ -168,7 +168,7 @@ def set_feature_points(unique_id, points):
 
 def get_feature_points(unique_id):
     util = RedisUtil()
-    return until.r.smembers(unique_id + 'fs')
+    return util.r.smembers(unique_id + 'fs')
 
 
 def get_feature_point(unique_id):
