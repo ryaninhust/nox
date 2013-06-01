@@ -49,6 +49,12 @@ button
   position: relative
   .hd, .bd
     height: 100%
+    position: relative
+  .hd
+    z-index: 20
+  .bd
+    z-index: 10
+
   .hd
     @include flex
     @include flex-center
@@ -59,7 +65,7 @@ button
       .info
         display: block
     // big area
-  .bd
+  .question-wrapper
     margin-top: 40px
     border-radius: $radius
     background: $white-bg
@@ -67,6 +73,8 @@ button
     position: relative
     $arrow-height: 20px
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4)
+    z-index: 10
+    @include experimental(transition, all 0.1s)
     &:after
       content: ' '
       position: absolute
@@ -80,6 +88,10 @@ button
       border-left: $arrow-height solid transparent
       border-right: $arrow-height solid transparent
       border-bottom: $arrow-height solid $white-bg
+    &.hide-up
+      margin-top: -200px
+      @include experimental(transform, scale(0.1))
+
   .cover
     overflow: hidden
     height: $circle-size
@@ -104,7 +116,7 @@ button
     width: $box-size
     height: $box-size
     margin-left: - $box-size / 2 
-    margin-top: - $box-size / 2 + 60px
+    margin-top: - $box-size / 2
     top: 50%
     left: 50%
     overflow: hidden

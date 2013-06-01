@@ -22,8 +22,8 @@
       MovieView.prototype.template = _.template($('#movie-panel-tmpl').html());
 
       MovieView.prototype.events = {
-        'mouseenter .hd': 'openMoviePanel',
-        'mouseleave .hd': 'closeMoviePanel',
+        'mouseenter': 'openMoviePanel',
+        'mouseleave': 'closeMoviePanel',
         'click .like': 'like',
         'click .delete': 'delete'
       };
@@ -40,19 +40,23 @@
       };
 
       MovieView.prototype.render = function() {
+        debugger;
         var movie;
 
         movie = this.movies.bestOne();
         this.$el.html(this.template(movie));
+        this.delegateEvents();
         return this;
       };
 
       MovieView.prototype.openMoviePanel = function() {
+        app.trigger('panel:show');
         console.log('open');
         return this;
       };
 
       MovieView.prototype.closeMoviePanel = function() {
+        app.trigger('panel:hide');
         console.log('close');
         return this;
       };
