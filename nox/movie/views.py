@@ -59,11 +59,11 @@ class MovieViewSet(viewsets.ViewSetMixin,
         movie = Movie(id="3642843", name="a", directors="a", actors="a",
                       types="a", countries="a", languages='a',
                       year='a', length='a', rate='a',
-                      watcher='a', tags="a", cover_url="/photos/3624843")
+                      watcher='a', tags="a", cover_url="/photos/3642843")
         bmovie = Movie(id="11529526", name="b", directors="b", actors="b",
                       types="b", countries="b", languages="b",
                       year='b', length='b', rate='b',
-                      watcher='b', tags="b", cover_url="/photos/3624843")
+                      watcher='b', tags="b", cover_url="/photos/11529526")
         movies.append(movie)
         movies.append(bmovie)
         movie_json = MovieSerializer(movies)
@@ -83,6 +83,5 @@ class QuestionViewSet(viewsets.ViewSetMixin,
     def ask_question(self, request, *args, **kwargs):
         _view = MovieViewSet.as_view({'get': 'get_movies'})
         return _view(request, args, kwargs)
-
 
 
