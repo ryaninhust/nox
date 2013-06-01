@@ -2,3 +2,4 @@ django ==1.5
 https://github.com/ryaninhust/django-rest-framework/zipball/master
 pymongo
 https://github.com/douban/dpark/zipball/master
+redis
