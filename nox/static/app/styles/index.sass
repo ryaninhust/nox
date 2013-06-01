@@ -1,8 +1,10 @@
-@import "h5bp.css"
-@import "bootstrap.css"
-@import "compass/css3"
+@import h5bp
+@import bootstrap
+@import compass/css3
+@import fonts
 
 $circle-size: 320px
+$radius: 10px
 
 html, body, .container, .main-page
   height: 100%
@@ -21,7 +23,7 @@ html, body, .container, .main-page
 @mixin flex()
   display: flex
   display: -webkit-flex
-  display: -mox-flex
+  display: -moz-flex
 
 @mixin flex-center()
   @include experimental(justify-content, center)
@@ -58,7 +60,7 @@ button
     // big area
   .bd
     margin-top: 40px
-    border-radius: 20px
+    border-radius: $radius
     background: #ffffff
     //  try to add arrow
     position: relative
@@ -96,7 +98,7 @@ button
   $box-size: $circle-size + 10px
   .info
     background: #fff
-    border-radius: 20px
+    border-radius: $radius
     position: absolute
     width: $box-size
     height: $box-size
@@ -128,11 +130,18 @@ button
       font-size: 25px
       display: inline-block
       color: #fff
+    .like:before
+      content: '\e007'
+    .delete:before
+      content: '\e00b'
   .info-detail
     font-size: 12px
     padding: 0px 10px 10px
     p 
       margin: 0
+  .info-addition
+    margin-top: 20px
+    text-align: center
 
   $dialog-height: 200px
   $action-height: 70px
@@ -141,9 +150,12 @@ button
   .question
     overflow: hidden
     height: $dialog-height - $action-height
+    @include flex
+    @include flex-center
 
   blockquote
-    padding: 40px 40px 0
+    padding: 0px 40px 0
+    margin: 0
     font-size: 18px
     border: none
     &:before, &:after
@@ -160,7 +172,7 @@ button
     @include experimental(justify-content, space-between)
     @include experimental(flex-wrap, wrap)
     padding: 0 40px
-    border-radius: 0 0 20px 20px
+    border-radius: 0 0 $radius $radius
     background: #060709
     box-shadow: inset 0px 4px 10px 4px black
     button

@@ -1,9 +1,10 @@
 define [
+  'app'
   'jquery'
   'lodash'
   'backbone'
-  #'mod/trash'  # TODO trash to fileter
-], ($, _, backbone)->
+  'mods/movies'  # TODO trash to fileter
+], (app, $, _, Backbone, Movies)->
     class Question extends Backbone.Model
       defaults:
         # server
@@ -12,12 +13,14 @@ define [
         type: ' '
         movies: [
           {
+            id: '2'
             name: 'aaa'
-            cover_url: 'http://img3.douban.com/view/photo/photo/public/p1812483670.jpg'
+            cover_url: '/images/sample_cover.jpg'
             director: 'kk'
             summary: 'xxxxxx'
           }
           {
+            id: '1'
             name: 'bb'
             cover_url: 'http://img3.douban.com/view/photo/photo/public/p1812483670.jpg'
             director: 'houkanshan'
@@ -26,12 +29,7 @@ define [
         ]
       toRenderJSON: =>
         question = @toJSON()
-        movie = @selectmovie(question.movies)
-        question.movie = movie
+        app.movies.update(question.movies)
+        question.movie = app.movies.bestOne()
+
         question
-
-      selectmovie: (movies)=>
-        #TODO fileter
-        movies[0]
-
-    Question
