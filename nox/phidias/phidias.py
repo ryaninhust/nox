@@ -9,7 +9,7 @@ import datetime
 import random
 
 feature_list = ['language', 'countries', 'tags', 'rate', 'people',
-                'editors', 'directors', 'actors', 'date', 'length', 'types']
+                'editors', 'directors', 'actors', 'length', 'types']
 mountain_data_key = '1'
 
 dpark = dpark.context.DparkContext(master='local')
