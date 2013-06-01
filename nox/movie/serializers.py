@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from rest_framework import serializers
 
 
@@ -8,6 +9,7 @@ class AnswerSerializer(serializers.Serializer):
 class QuestionSerializer(serializers.Serializer):
     question = serializers.CharField(max_length=250)
     movies_url = serializers.HyperlinkedIdentityField(view_name='question_movies')
+    uid = serializers.CharField(max_length=20)
 
 
 class MovieSerializer(serializers.Serializer):

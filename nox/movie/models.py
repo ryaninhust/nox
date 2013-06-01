@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 
 # Create your models here.
@@ -31,6 +32,7 @@ class Answer(object):
 
 class Question(object):
 
-    def __init__(self, pk, question):
+    def __init__(self, pk, question, uid):
         self.pk = pk
         self.question = question
+        self.uid = uid

@@ -4,10 +4,13 @@ import json
 import urllib2
 import mimetypes
 import re
+import redis
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.servers.basehttp import FileWrapper
 from django.conf import settings
+from werkzeug import security
 
 from rest_framework import viewsets
 from rest_framework import generics
@@ -16,6 +19,43 @@ from rest_framework.response import Response
 
 from movie.models import Movie, Question, Answer
 from movie.serializers import AnswerSerializer, QuestionSerializer, MovieSerializer
+from phidias.phidias import pick_point, pick_movies
+
+
+r = redis.StrictRedis(host='localhost')
+
+def ask_problem(feature, value):
+    if feature == "language":
+        return u"这部电影是讲" + value + "的吗？"
+    elif feature == "countries":
+        return u"这部电影是来自" + value + "的吗？"
+    elif feature == "tags":
+        return u"这部电影和" + value + "有关的吗？"
+    elif feature == "rate" and int(value) > 8:
+        return u"这部电影是否广受赞誉？"
+    elif feature == "rate" and int(value) > 9:
+        return u"这部电影是否非常经典？"
+    elif feature == "people" and int(value) < 100:
+        return u"这部电影是否非常冷门"
+    elif feature == "people" and int(value) > 30000:
+        return u"这部电影是否非常热门"
+    elif feature == "editors":
+        return u"这部电影是不是" + value + "作为编剧"
+    elif feature == "directors":
+        return u"这部电影难道是由" + value + "拍摄的"
+    elif feature == "actors":
+        return u"这部电影有没有" + value + "参与出演"
+    elif feature == "date":
+        return u"这是一部" + date + "左右拍摄出的电影吗"
+    elif feature == "length" and int(value) > 150:
+        return u"这是一部时间很长的电影？"
+    elif feature == "length" and int(value) < 45:
+        return u"这是个短片？"
+    elif feature == "types":
+        return u"这是个" + types + "片？"
+    else:
+        return u"我不知道该问什么了。。"
+
 
 
 
@@ -78,7 +118,6 @@ def photo_view(request, pid):
 class MovieViewSet(viewsets.ViewSetMixin,
         generics.GenericAPIView,
         mixins.SubModelMixin):
-
     serializer_class = MovieSerializer
     def get_movies(self, request, *args, **kwargs):
         movies = []
@@ -99,11 +138,15 @@ class MovieViewSet(viewsets.ViewSetMixin,
 
 class QuestionViewSet(viewsets.ViewSetMixin,
         generics.GenericAPIView):
-
     serializer_class = AnswerSerializer
     def answer_question(self, request, *args, **kwargs):
+        token = create_token(8)
+        question_content = u"一个问题"
+        #print pick_point(token)
         answer = Answer(request.DATA)
-        question = Question(pk=1, question="asda")
+        if answer:
+            answer =  int(answer.answer["answer"])
+        question = Question(pk=1, question=question_content, uid=token)
         question_json = QuestionSerializer(question)
         return Response(question_json.data)
 
@@ -111,4 +154,6 @@ class QuestionViewSet(viewsets.ViewSetMixin,
         _view = MovieViewSet.as_view({'get': 'get_movies'})
         return _view(request, args, kwargs)
 
+def create_token(length):
+    return security.gen_salt(length)
 
