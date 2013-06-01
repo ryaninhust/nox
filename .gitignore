@@ -2,3 +2,7 @@
 /virtual.env
 *.ropeproject*
 *.db
+temp
+dist
+node_modules
+.sass-cache
