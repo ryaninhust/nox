@@ -21,12 +21,18 @@ def index_view(request):
 
 def photo_view(request, pid):
     photo_url = "http://img3.douban.com/lpic/s" + pid + ".jpg"
-    dest_addr = os.path.join(settings.COVER_PATH, "..", "cover/", pid, ".jpg")
-    stream = urllib2.urlopen(photo_url)
-    new_file = open(dest_addr, "wb")
-    new_file.write(stream.read())
-    new_file.close()
-    return HttpResponse(dest_addr)
+    filename = pid + ".jpg"
+    dest_addr = os.path.abspath(os.path.join(settings.COVER_PATH, os.pardir,os.pardir, "cover/", filename))
+    if os.path.exists(dest_addr):
+        file_content = open(dest_addr).read()
+    else:
+        stream = urllib2.urlopen(photo_url)
+        file_content = stream.read()
+        new_file = open(dest_addr, "wb")
+        new_file.write(file_content)
+        new_file.close()
+    response = HttpResponse(file_content, mimetype='content_type')
+    return response
 
 
 class MovieViewSet(viewsets.ViewSetMixin,
