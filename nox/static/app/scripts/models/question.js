@@ -16,8 +16,9 @@
 
       Question.prototype.defaults = {
         question: '额，这并不是个问题, 这是个bug。。。',
-        headUrl: ' ',
-        type: ' ',
+        headUrl: '',
+        load: true,
+        type: '',
         movies_url: '/xxxxxxxx'
       };
 

@@ -45,23 +45,22 @@
             {{ if (name.length){ }}
             <div class="title">{{= name}}</div>
             <div class="info-action">
-              <button class="like icon"></button>
+              <button class="like icon" data-url="{{= 'http://movie.douban.com/subject/' + id + '/'}}"></button>
               <button class="delete icon"></button>
             </div>
             <div class="info-detail">
-              <p class="director">导演 {{= directors}}</p>
-              <p class="director">演员 {{= actors}}</p>
-              <p class="summary">{{= tags}}</p>
+              <p class="summary">{{= ''}}</p>
             </div>
             {{ } else { }}
             <div class="info-addition">
               {{= summary}}
             </div>
             <div class="info-addition-action">
-              <button class="restart icon">&nbsp; 好吧重来</button>
+              <button class="restart icon">&nbsp; 那就重来</button>
             </div>
             {{ } }}
           </div>
+          {{ if (name.length){ }}
           <div class="back-panel">
             <section class="left-top directiors">
               <div class="box">
@@ -98,6 +97,7 @@
               </div>
             </section>
           </div>
+          {{ } }}
         </script>
 
         <script id="question-dialog-tmpl" type="template">

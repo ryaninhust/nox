@@ -4,10 +4,7 @@ define([
     // Libraries.
     'jquery',
     'lodash',
-    'backbone',
-
-    // Plugins.
-    'plugins/backbone.layoutmanager'
+    'backbone'
 ],
 
 function($, _, Backbone) {
