@@ -11,7 +11,7 @@ feature_list = ['language', 'countries', 'tags', 'rate', 'people',
                 'editors', 'directors', 'actors', 'date', 'length', 'types']
 mountain_data_key = '1'
 
-dpark = dpark.context.DparkContext(master='local')
+dpark = dpark.context.DparkContext(master='process')
 class SplitCiterion(object):
     pass
 
@@ -66,9 +66,12 @@ def get_phidias_point(feature_set, citerion=CrossEncropyCiterion):
 
 
 def make_filter(feature, feature_point, data, np):
+    feature_point = unicode(feature_point.decode('utf8'))
     rdd = dpark.parallelize(data)
 
     def _has_feature(item):
+        if item[feature] == None:
+            return False
         return feature_point in item[feature]
 
     def _is_feature(item):
@@ -82,7 +85,9 @@ def make_filter(feature, feature_point, data, np):
             return False
 
     def _has_not_feature(item):
-        return feature_point not in item[feature]
+        if item[feature] == None:
+            return True
+        feature_point not in item[feature]
 
     def _is_not_feature(item):
         return item[feature] != feature_point
@@ -168,7 +173,7 @@ def get_feature_points(unique_id):
 
 def get_feature_point(unique_id):
     util = RedisUtil()
-    util.r.get(unique_id + 'f')
+    return util.r.get(unique_id + 'f')
 
 
 def set_feature_point(unique_id, point):
@@ -189,9 +194,12 @@ def get_filter_points(unique_id):
 
 def climax(unique_id, np):
     if np == -1:
-        until = RedisUtil()
-        until.r.delete(unique_id+'fp')
-        feature_points = get_top_points(feature_list, '1')
+        util = MongoUtil()
+        data = list(util.collection.find({},{'_id':False}))
+        util = RedisUtil()
+        util.set_data(unique_id, data)
+        util.r.delete(unique_id+'fp')
+        feature_points = get_top_points(feature_list, unique_id)
         feature_points = ["%s:%s:%f" % (i[0], i[
                                         1][0], i[1][1]) for i in feature_points]
         set_feature_points(unique_id, feature_points)
@@ -205,6 +213,7 @@ def climax(unique_id, np):
     else:
         feature_point = get_feature_point(unique_id)
         tem_tuple = feature_point.split(":")
+        print tem_tuple[0], tem_tuple[1]
         new_data = make_filter(tem_tuple[
                                0], tem_tuple[1], get_data(unique_id), np)
         set_data(unique_id, new_data)
@@ -236,7 +245,9 @@ def pick_movies(unique_id):
 
 if __name__ == "__main__":
     s = datetime.datetime.now()
-    print climax('2',1)
+    climax('2',-1)
+    print pick_point('2')
+    climax('2', 1)
     # print pick_movies('1')
     print pick_point('2')
     e = datetime.datetime.now()
