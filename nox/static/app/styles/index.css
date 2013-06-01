@@ -1,0 +1,122 @@
+@import url(h5bp.css);
+@import url(bootstrap.css);
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\000035}}
+html, body, .main-page {
+  height: 100%;
+  width: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\000039}}
+html {
+  background: url(/images/bg1.png);
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000311}}
+body {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000315}}
+.main-page .content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+  display: -mox-flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000324}}
+.dialog-wrapper {
+  width: 50%;
+  height: 200px;
+  position: relative;
+  border-radius: 20px;
+  box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.8);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000331}}
+.dialog-wrapper .hd, .dialog-wrapper .bd {
+  overflow: hidden;
+  height: 100%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000334}}
+.dialog-wrapper .hd {
+  float: right;
+  width: 150px;
+  background: #268dcd;
+  border-radius: 0 20px 20px 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000339}}
+.dialog-wrapper .bd {
+  border-radius: 20px 0 0 20px;
+  background: white;
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000345}}
+.dialog-wrapper .bd:after {
+  content: " ";
+  position: absolute;
+  left: 100%;
+  margin-left: 20px;
+  height: 0;
+  width: 0;
+  border: 20px solid black;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000354}}
+.dialog-wrapper .question {
+  margin-top: -40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow: hidden;
+  height: 200px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000360}}
+.dialog-wrapper blockquote {
+  font-size: 18px;
+  margin-top: 100px;
+  border: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000364}}
+.dialog-wrapper blockquote:before, .dialog-wrapper blockquote:after {
+  content: " ";
+  padding-left: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000367}}
+.dialog-wrapper blockquote:before {
+  background: url("http://img3.douban.com/pics/quotel.gif") no-repeat 4px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000369}}
+.dialog-wrapper blockquote:after {
+  background: url("http://img3.douban.com/pics/quoter.gif") no-repeat 4px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000372}}
+.dialog-wrapper .select {
+  display: flex;
+  display: -webkit-flex;
+  display: -mox-flex;
+  height: 40px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000377}}
+.dialog-wrapper .select button {
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -ms-justify-content: space-between;
+  -o-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  flex-wrap: wrap;
+  border: none;
+  margin: 0;
+}

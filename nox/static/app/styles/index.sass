@@ -1,0 +1,82 @@
+@import "h5bp.css"
+@import "bootstrap.css"
+@import "compass/css3"
+
+html, body, .main-page
+  height: 100%
+  width: 100%
+
+html
+  background: url(/images/bg1.png)
+body
+  background: rgba(255,255,255, 0.3)
+
+.main-page
+  .content
+    height: 100%
+    width: 100%
+    display: flex
+    display: -webkit-flex
+    display: -mox-flex
+    @include experimental(justify-content, center)
+    @include experimental(align-items, center)
+
+.dialog-wrapper
+  width: 50%
+  height: 200px
+  position: relative
+  //border: 20px solid rgba(255,255,255, 0.5)
+  border-radius: 20px
+  box-shadow: 0 0 0 20px rgba(255,255,255,0.8)
+  .hd, .bd
+    overflow: hidden
+    height: 100%
+  .hd
+    float: right
+    width: 150px
+    background: #268DCD
+    border-radius: 0 20px 20px 0
+  .bd
+    border-radius: 20px 0 0 20px
+    background: #ffffff
+
+    //# try to add arrow
+    position: relative
+    &:after
+      content: ' '
+      position: absolute
+      left: 100%
+      margin-left: 20px
+      height: 0
+      width: 0
+      border: 20px solid black
+
+  .question
+    margin-top: -40px
+    padding-left: 20px
+    padding-right: 20px
+    overflow: hidden
+    height: 200px
+  blockquote
+    font-size: 18px
+    margin-top: 100px
+    border: none
+    &:before, &:after
+      content: ' '
+      padding-left: 20px
+    &:before
+      background: url('http://img3.douban.com/pics/quotel.gif') no-repeat 4px
+    &:after
+      background: url('http://img3.douban.com/pics/quoter.gif') no-repeat 4px
+
+  .select
+    display: flex
+    display: -webkit-flex
+    display: -mox-flex
+    height: 40px
+    button
+      @include experimental(justify-content, space-between)
+      @include experimental(flex-wrap, wrap)
+      border: none
+      margin: 0
+
