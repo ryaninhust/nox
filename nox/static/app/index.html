@@ -23,8 +23,8 @@
           <header></header>
           <div class="content">
             <div class="dialog-wrapper">
-              <div class="hd"></div>
-              <div class="bd"></div>
+              <div class="hd movie-panel"></div>
+              <div class="bd question-wrapper"></div>
             </div>
           </div>
           <footer></footer>
@@ -59,12 +59,40 @@
             {{ } }}
           </div>
           <div class="back-panel">
-            <section class="left-top"></section>
-            <section class="left-mid"></section>
-            <section class="left-bot"></section>
-            <section class="right-top"></section>
-            <section class="right-mid"></section>
-            <section class="right-bot"></section>
+            <section class="left-top directiors">
+              <div class="box">
+                <em> 导演 </em>
+                <p> {{= directors}} </p>
+                <em> 编剧 </em>
+                <p> {{= editors}} </p>
+                <em> 演员 </em>
+                <p> {{= actors}}</p>
+              </div>
+              <div class="box">
+                <em> 语言 </em>
+                <p>{{= language}}</p>
+                <em> 制片国/地区 </em>
+                <p>{{= contries}}</p>
+                <em> 片长 </em>
+                <p>{{= length}}</p>
+                <em> 类型 </em>
+                <p>{{= type}}</p>
+              </div>
+            </section>
+            <section class="right-top">
+              <div class="box">
+                <em> 评星 </em>
+                <p>{{= rate}}</p>
+                <em> 标签 </em>
+                <p>{{= tags}}</p>
+                <em>评价人数</em>
+                <p>{{= people}}</p>
+              </div>
+              <div class="box">
+                <em> 上映日期 </em>
+                <p>{{= year}}</p>
+              </div>
+            </section>
           </div>
         </script>
 
