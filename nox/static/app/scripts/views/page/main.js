@@ -13,7 +13,8 @@
         this.renderResult = __bind(this.renderResult, this);
         this.renderMoive = __bind(this.renderMoive, this);
         this.renderQuestion = __bind(this.renderQuestion, this);
-        this.render = __bind(this.render, this);        _ref = MainPage.__super__.constructor.apply(this, arguments);
+        this.render = __bind(this.render, this);
+        this.restart = __bind(this.restart, this);        _ref = MainPage.__super__.constructor.apply(this, arguments);
         return _ref;
       }
 
@@ -24,10 +25,20 @@
       MainPage.prototype.initialize = function() {
         app.on('getResult', this.renderResult);
         app.on('getMovies', this.renderMoive);
-        return (new BackgroundView()).render();
+        return app.on('restart', this.restart);
+      };
+
+      MainPage.prototype.restart = function() {
+        app.questionView.remove();
+        app.movieView.remove();
+        delete app.uid;
+        delete app.questionView;
+        delete app.movieView;
+        return this.render();
       };
 
       MainPage.prototype.render = function() {
+        (new BackgroundView()).render();
         this.$el.html(this.templateHtml);
         this.content = this.$el.find('.content');
         this.renderQuestion();
