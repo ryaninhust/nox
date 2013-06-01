@@ -33,9 +33,9 @@ def ask_problem(feature, value):
         return u"这部电影是来自" + value + u"的吗？"
     elif feature == "tags":
         return u"这部电影和" + value + u"有关的吗？"
-    elif feature == "rate" and int(value) > 8:
+    elif feature == "rate" and float(value) > 8:
         return u"这部电影是否广受赞誉？"
-    elif feature == "rate" and int(value) > 9:
+    elif feature == "rate" and float(value) > 9:
         return u"这部电影是否非常经典？"
     elif feature == "people" and int(value) < 100:
         return u"这部电影是否非常冷门"
