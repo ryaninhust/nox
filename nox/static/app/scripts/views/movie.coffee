@@ -25,18 +25,19 @@ define [
         @movies.fetch(url)
 
       render: ()=>
-        debugger
         movie = @movies.bestOne()
         @$el.html(@template(movie))
         @delegateEvents()
         @
 
       openMoviePanel: =>
+        @$el.find('.back-panel').show()
         app.trigger('panel:show')
         console.log('open')
         @
 
       closeMoviePanel: =>
+        @$el.find('.back-panel').hide()
         app.trigger('panel:hide')
         console.log('close')
         @

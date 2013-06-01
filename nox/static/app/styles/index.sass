@@ -30,6 +30,11 @@ html, body, .container, .main-page
   @include experimental(justify-content, center)
   @include experimental(align-items, center)
 
+@mixin table-cell-center()
+  display: table-cell
+  text-align: center
+  vertical-align: middle
+
 button 
   background: transparent
   margin: 0
@@ -39,17 +44,18 @@ button
   .content
     height: 100%
     width: 100%
-    @include flex
-    @include flex-center
+    display: table
 
 .dialog-wrapper
   width: 50%
   height: 200px
   margin-top: -340px
   position: relative
+  @include table-cell-center()
   .question-wrapper, .movie-panel
     height: 100%
     position: relative
+    margin: 0 auto
   .question-wrapper
     z-index: 10
   .movie-panel
@@ -161,17 +167,43 @@ button
   .restart:before
     content: '\e02b'
 
+  .back-panel
+    display: none
+    section
+      position: absolute
+      left: 50%
+      top: 50%
+      margin-top: - $box-size / 2
+      color: #fff
+      height: $box-size
+      width: $box-size
+    em
+      font-style: normal
+    .box
+      padding: 10px
+      background: rgba(0,0,0, .5)
+      margin-bottom: 20px
+      min-height: 100px
+    .left-top
+      margin-left: - $box-size * 3 / 2 - 20px
+    .right-top
+      margin-left: $box-size / 2 + 20px
+      
+
   $dialog-height: 200px
   $action-height: 70px
   .question-wrapper
     height: $dialog-height
+    width: 50%
+    min-width: 340px
   .question
     overflow: hidden
     height: $dialog-height - $action-height
-    @include flex
-    @include flex-center
+    display: table
+    width: 100%
 
   blockquote
+    @include table-cell-center()
     padding: 0px 40px 0
     margin: 0
     font-size: 18px
