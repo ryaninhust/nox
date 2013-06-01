@@ -16,9 +16,17 @@ define [
       initialize: ->
         app.on 'getResult', @renderResult
         app.on 'getMovies', @renderMoive
-        (new BackgroundView()).render()
+        app.on 'restart', @restart
 
+      restart: =>
+        app.questionView.remove()
+        app.movieView.remove()
+        delete app.uid
+        delete app.questionView
+        delete app.movieView
+        @render()
       render: =>
+        (new BackgroundView()).render()
         @$el.html(@templateHtml)
         @content = @$el.find('.content')
         @renderQuestion()

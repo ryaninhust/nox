@@ -96,7 +96,7 @@
       };
 
       MovieView.prototype.restart = function(e) {
-        return app.router.navigate('restart');
+        return app.trigger('restart');
       };
 
       return MovieView;

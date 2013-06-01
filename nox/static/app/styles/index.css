@@ -9463,17 +9463,22 @@ button {
 .dialog-wrapper blockquote:before, .dialog-wrapper blockquote:after {
   content: " ";
   font-size: 30px;
+  vertical-align: bottom;
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: -15px;
+  display: inline-block;
   color: #6f6f6f;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003219}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003224}}
 .dialog-wrapper blockquote:before {
   content: "“";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003221}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003226}}
 .dialog-wrapper blockquote:after {
   content: "”";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003224}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003229}}
 .dialog-wrapper .select {
   display: flex;
   display: -webkit-flex;
@@ -9494,7 +9499,7 @@ button {
   background: rgba(0, 0, 0, 0.6);
   box-shadow: inset 0px 4px 10px 4px rgba(0, 0, 0, 0.2);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003234}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003239}}
 .dialog-wrapper .select button {
   margin-top: 20px;
   height: 30px;
@@ -9502,50 +9507,50 @@ button {
   min-width: 80px;
   color: #ecf0f1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003240}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003245}}
 .dialog-wrapper .select button.yes {
   background: #27ae60;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003242}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003247}}
 .dialog-wrapper .select button.no {
   background: #c0392b;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003244}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/nox\/nox\/static\/app\/styles\/index\.sass}line{font-family:\00003249}}
 .dialog-wrapper .select button.unknow {
   background: #7f8c8d;
 }
 
 @keyframes roll {
-  /* line 248, index.sass */
+  /* line 253, index.sass */
   0% {
     transform: rotate(0deg);
   }
 
-  /* line 250, index.sass */
+  /* line 255, index.sass */
   100% {
     transform: rotate(360deg);
   }
 }
 
 @-webkit-keyframes roll {
-  /* line 254, index.sass */
+  /* line 259, index.sass */
   0% {
     -webkit-transform: rotate(0deg);
   }
 
-  /* line 256, index.sass */
+  /* line 261, index.sass */
   100% {
     -webkit-transform: rotate(360deg);
   }
 }
 
 @-moz-keyframes roll {
-  /* line 260, index.sass */
+  /* line 265, index.sass */
   0% {
     -moz-transform: rotate(0deg);
   }
 
-  /* line 262, index.sass */
+  /* line 267, index.sass */
   100% {
     -moz-transform: rotate(360deg);
   }
