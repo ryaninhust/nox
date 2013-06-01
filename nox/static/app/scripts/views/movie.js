@@ -40,7 +40,6 @@
       };
 
       MovieView.prototype.render = function() {
-        debugger;
         var movie;
 
         movie = this.movies.bestOne();
@@ -50,12 +49,14 @@
       };
 
       MovieView.prototype.openMoviePanel = function() {
+        this.$el.find('.back-panel').show();
         app.trigger('panel:show');
         console.log('open');
         return this;
       };
 
       MovieView.prototype.closeMoviePanel = function() {
+        this.$el.find('.back-panel').hide();
         app.trigger('panel:hide');
         console.log('close');
         return this;
