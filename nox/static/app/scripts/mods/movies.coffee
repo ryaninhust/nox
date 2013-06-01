@@ -20,7 +20,7 @@ define [
       length: ''
       types: ''
       year: ''
-      summary: '没有什么电影能满足你了!!（╯‵□′）╯︵'
+      summary: '没有电影了!!（╯‵□′）╯︵'
 
     class Movies
       constructor: ->
