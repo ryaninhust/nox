@@ -12,6 +12,8 @@ define [
       imgList: [
         '/static/images/bg1.jpg'
         '/static/images/bg2.jpg'
+        '/static/images/bg3.jpg'
+        '/static/images/bg4.jpg'
       ]
       render: ->
         image = new Image()
@@ -21,7 +23,8 @@ define [
         image.src = @getImgUrl()
 
       getImgUrl: ->
-        @imgList[0]
+        index = Math.random() * @imgList.length | 0
+        @imgList[index]
 
         
 

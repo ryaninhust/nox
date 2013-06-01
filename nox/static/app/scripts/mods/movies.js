@@ -37,8 +37,12 @@
         var _this = this;
 
         console.log(url);
-        return $.get(url).done(function(r) {
+        return $.get(url, {
+          uid: app.uid
+        }).done(function(r) {
           return _this.update(r);
+        }).fail(function() {
+          return _this.trigger('changed');
         });
       };
 

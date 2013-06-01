@@ -20,28 +20,31 @@ define [
         @collection.on('add', @gotNewQuestion, this)
         # first question fire
         @getQuestion()
+        @hideUp()
+
       hideUp: =>
         @$el.addClass('hide-up')
       showDown: =>
+        if @currentQuestion.get('load')
+          return
         @$el.removeClass('hide-up')
         
       render: ()->
-        @hideUp()
-        _.delay(()=>
-          @showDown()
-        , 100)
         question = @currentQuestion.toRenderJSON()
         @$el.html(@template(question))
         @
 
       gotNewQuestion: (model, collection)->
+        console.log('loisgt')
         @currentQuestion = model
         @render()
+        @showDown()
         @
 
-      getQuestion: (answer={answer: 2})->
+      getQuestion: (answer={answer: -1})->
         $.post('/questions/', answer)
           .done((r)=>
+            app.uid = r.uid
             @addQuestion(r)
           )
           .fail((r)=>
@@ -50,13 +53,15 @@ define [
             @trick += '那'
             r =
               type: 'question'
-              question: @trick + '你吃过测试么？'
+              question: @trick + '你吃过Bug么？'
             @addQuestion(r)
           )
 
       answerQuestion: (e)->
+        @hideUp()
         e = $(e.target)
         answer =
+          uid: app.uid
           answer: e.val()
         @getQuestion(answer)
         @

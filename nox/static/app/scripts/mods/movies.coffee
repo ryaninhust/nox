@@ -30,9 +30,11 @@ define [
 
       fetch: (url)=>
         console.log(url)
-        $.get(url)
+        $.get(url, {uid: app.uid})
           .done (r)=>
             @update(r)
+          .fail =>
+            @trigger('changed')
               
       update: (newList)=>
         console.log(@filter(newList))

@@ -31,7 +31,8 @@
         app.on('panel:show', this.hideUp);
         app.on('panel:hide', this.showDown);
         this.collection.on('add', this.gotNewQuestion, this);
-        return this.getQuestion();
+        this.getQuestion();
+        return this.hideUp();
       };
 
       QuestionView.prototype.hideUp = function() {
@@ -39,25 +40,25 @@
       };
 
       QuestionView.prototype.showDown = function() {
+        if (this.currentQuestion.get('load')) {
+          return;
+        }
         return this.$el.removeClass('hide-up');
       };
 
       QuestionView.prototype.render = function() {
-        var question,
-          _this = this;
+        var question;
 
-        this.hideUp();
-        _.delay(function() {
-          return _this.showDown();
-        }, 100);
         question = this.currentQuestion.toRenderJSON();
         this.$el.html(this.template(question));
         return this;
       };
 
       QuestionView.prototype.gotNewQuestion = function(model, collection) {
+        console.log('loisgt');
         this.currentQuestion = model;
         this.render();
+        this.showDown();
         return this;
       };
 
@@ -66,10 +67,11 @@
 
         if (answer == null) {
           answer = {
-            answer: 2
+            answer: -1
           };
         }
         return $.post('/questions/', answer).done(function(r) {
+          app.uid = r.uid;
           return _this.addQuestion(r);
         }).fail(function(r) {
           var _ref1;
@@ -80,7 +82,7 @@
           _this.trick += '那';
           r = {
             type: 'question',
-            question: _this.trick + '你吃过测试么？'
+            question: _this.trick + '你吃过Bug么？'
           };
           return _this.addQuestion(r);
         });
@@ -89,8 +91,10 @@
       QuestionView.prototype.answerQuestion = function(e) {
         var answer;
 
+        this.hideUp();
         e = $(e.target);
         answer = {
+          uid: app.uid,
           answer: e.val()
         };
         this.getQuestion(answer);

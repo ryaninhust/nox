@@ -4,8 +4,14 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define(['app', 'jquery', 'lodash', 'backbone', 'mods/movies'], function(app, $, _, Backbone, Movies) {
-    var MovieView, _ref;
+    var MovieView, loadData, _ref;
 
+    loadData = {
+      id: '',
+      name: '',
+      cover_url: 'static/images/loading.png',
+      summary: '在处理数据...'
+    };
     return MovieView = (function(_super) {
       __extends(MovieView, _super);
 
@@ -13,6 +19,7 @@
         this.closeMoviePanel = __bind(this.closeMoviePanel, this);
         this.openMoviePanel = __bind(this.openMoviePanel, this);
         this.render = __bind(this.render, this);
+        this.renderLoading = __bind(this.renderLoading, this);
         this.setUrl = __bind(this.setUrl, this);        _ref = MovieView.__super__.constructor.apply(this, arguments);
         return _ref;
       }
@@ -25,7 +32,8 @@
         'mouseenter': 'openMoviePanel',
         'mouseleave': 'closeMoviePanel',
         'click .like': 'like',
-        'click .delete': 'delete'
+        'click .delete': 'delete',
+        'click .restart': 'restart'
       };
 
       MovieView.prototype.initialize = function() {
@@ -39,9 +47,17 @@
         return this.movies.fetch(url);
       };
 
+      MovieView.prototype.renderLoading = function() {
+        this.$el.html(this.template(loadData));
+        this.$el.find('.cover').addClass('roll');
+        this.delegateEvents();
+        return this;
+      };
+
       MovieView.prototype.render = function() {
         var movie;
 
+        console.log('change');
         movie = this.movies.bestOne();
         this.$el.html(this.template(movie));
         this.delegateEvents();
@@ -51,14 +67,12 @@
       MovieView.prototype.openMoviePanel = function() {
         this.$el.find('.back-panel').show();
         app.trigger('panel:show');
-        console.log('open');
         return this;
       };
 
       MovieView.prototype.closeMoviePanel = function() {
         this.$el.find('.back-panel').hide();
         app.trigger('panel:hide');
-        console.log('close');
         return this;
       };
 
@@ -74,12 +88,15 @@
       MovieView.prototype["delete"] = function(e) {
         var id, infoElem, target;
 
-        console.log('movieinfo:delete');
         target = $(e.target);
         infoElem = target.closest('.info');
         id = infoElem.data('id');
         this.movies["delete"](id);
         return this;
+      };
+
+      MovieView.prototype.restart = function(e) {
+        return app.router.navigate('restart');
       };
 
       return MovieView;
