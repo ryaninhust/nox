@@ -15,11 +15,21 @@ define [
       events:
         'click button[type=submit]': 'answerQuestion'
       initialize: ->
+        app.on('panel:show', @hideUp)
+        app.on('panel:hide', @showDown)
         @collection.on('add', @gotNewQuestion, this)
         # first question fire
         @getQuestion()
+      hideUp: =>
+        @$el.addClass('hide-up')
+      showDown: =>
+        @$el.removeClass('hide-up')
         
       render: ()->
+        @hideUp()
+        _.delay(()=>
+          @showDown()
+        , 100)
         question = @currentQuestion.toRenderJSON()
         @$el.html(@template(question))
         @
