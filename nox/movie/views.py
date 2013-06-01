@@ -125,11 +125,11 @@ class MovieViewSet(viewsets.ViewSetMixin,
         movie = Movie(id="3642843", name="a", directors="a", actors="a",
                 types="a", countries="a", language='中文',
                 year='a', length='110', rate='2.4',
-                people='200', tags="a",editors="editors",cover_url="/photos/3642843")
+                people='200', tags="a",editors="editors",cover_url="/photos/3642843", summary="")
         bmovie = Movie(id="11529526", name="b", directors="b", actors="b",
                 types="b", countries="b", language="英语",
                 year='b', length='110', rate='3.5', editors="editorsb",
-                people='200', tags="b", cover_url="/photos/11529526")
+                people='200', tags="b", cover_url="/photos/11529526", summary="总结一个故事")
         movies.append(movie)
         movies.append(bmovie)
         movie_json = MovieSerializer(movies)
@@ -140,17 +140,23 @@ class QuestionViewSet(viewsets.ViewSetMixin,
         generics.GenericAPIView):
     serializer_class = AnswerSerializer
     def answer_question(self, request, *args, **kwargs):
-        answer = Answer(request.DATA)
+        if hasattr(request.GET, "uid"):
+            token = request.GET["uid"]
+        else:
+            token = create_token(8)
+
+        answer = Answer(request.DATA).answer
         question_content = u"一个问题"
         if answer:
-            answer =  int(answer.answer["answer"])
-            token = create_token(8)
+            answer =  int(answer["answer"])
             climax(token, int(answer))
             results = pick_point(token)
             #print pick_point(token)
             feature = results[0]
             content = results[1].decode("utf-8")
             question_content = ask_problem(feature, content)
+        else:
+            return Response({"error": "fail"})
         question = Question(pk=1, question=question_content, uid=token)
         question_json = QuestionSerializer(question)
         return Response(question_json.data)

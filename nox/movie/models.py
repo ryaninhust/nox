@@ -8,7 +8,7 @@ class Movie(object):
 
     def __init__(self,id, name, directors, actors,
                  types, countries, editors, language, year,
-                 length, rate, people, tags, cover_url):
+                 length, rate, people, tags, cover_url, summary):
         self.id = id
         self.name = name
         self.directors = directors
@@ -23,6 +23,7 @@ class Movie(object):
         self.people = people
         self.tags = tags
         self.cover_url = cover_url
+        self.summary = summary
 
 class Answer(object):
 
