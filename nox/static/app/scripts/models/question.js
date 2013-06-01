@@ -23,11 +23,13 @@
           {
             name: 'aaa',
             cover_url: 'http://img3.douban.com/view/photo/photo/public/p1812483670.jpg',
-            director: 'kk'
+            director: 'kk',
+            summary: 'xxxxxx'
           }, {
             name: 'bb',
             cover_url: 'http://img3.douban.com/view/photo/photo/public/p1812483670.jpg',
-            director: 'houkanshan'
+            director: 'houkanshan',
+            summary: 'xxxxxx'
           }
         ]
       };

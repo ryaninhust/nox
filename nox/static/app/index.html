@@ -12,6 +12,8 @@
         <link rel="stylesheet" href="styles/index.css">
     </head>
     <body>
+        <div class="background-image">
+        </div>
         <!-- Main container. -->
         <div id="main" class="container">
         </div>
@@ -29,9 +31,19 @@
               <img src="{{= movie.cover_url}}" alt="{{= movie.name}}" />
             </div>
             <div class="info">
-              <p class="name">{{= movie.name}}</p>
-              <p class="director">{{= movie.director}}</p>
-              <p>and so on...</p>
+              <div class="info-cover">
+                <img src="{{= movie.cover_url}}" alt="{{= movie.name}}" />
+              </div>
+              <div class="title">{{= movie.name}}</div>
+              <div class="info-action">
+                <button class="like">Like</button>
+                <button class="delete">Delete</button>
+              </div>
+              <div class="info-detail">
+                <p class="director">导演 {{= movie.director}}</p>
+                <p class="director">演员 {{= movie.director}}</p>
+                <p class="summary">{{= movie.summary}}</p>
+              </div>
             </div>
           </div>
           <div class="bd">
@@ -41,9 +53,9 @@
               </blockquote>
             </div>
             <div class="select">
-              <button class="yes" type="submit" name="result" value="1">是的</button>
-              <button class="no" type="submit" name="result" value="-1">不是的</button>
-              <button class="unknow" type="submit" name="result" value="0">不知道</button>
+              <button class="unknow" type="submit" name="result" value="0">Emm..</button>
+              <button class="yes" type="submit" name="result" value="1">Yes!</button>
+              <button class="no" type="submit" name="result" value="-1">No!</button>
             </div>
           </div>
         </script>
