@@ -34,22 +34,22 @@
       };
 
       MainPage.prototype.renderQuestion = function() {
-        var _ref1;
-
-        if ((_ref1 = app.questionView) == null) {
+        if (!app.questionView) {
           app.questionView = new QuestionView();
+          return this.content.find('.question-wrapper').replaceWith(app.questionView.render().el);
+        } else {
+          return app.questionView.render();
         }
-        return this.content.find('.bd').empty().append(app.questionView.render().el);
       };
 
       MainPage.prototype.renderMoive = function(moviesUrl) {
-        var _ref1;
-
-        if ((_ref1 = app.movieView) == null) {
+        if (!app.movieView) {
           app.movieView = new MovieView();
+          this.content.find('.movie-panel').replaceWith(app.movieView.render().el);
+        } else {
+          app.movieView.render();
         }
-        app.movieView.setUrl(moviesUrl);
-        return this.content.find('.hd').empty().append(app.movieView.render().el);
+        return app.movieView.setUrl(moviesUrl);
       };
 
       MainPage.prototype.renderResult = function(option) {
