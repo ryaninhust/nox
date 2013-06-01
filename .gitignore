@@ -1,5 +1,7 @@
 *.pyc
 /virtual.env
+*.ropeproject*
+*.db
 temp
 dist
 node_modules
