@@ -140,17 +140,23 @@ class QuestionViewSet(viewsets.ViewSetMixin,
         generics.GenericAPIView):
     serializer_class = AnswerSerializer
     def answer_question(self, request, *args, **kwargs):
-        answer = Answer(request.DATA)
+        if hasattr(request.GET, "uid"):
+            token = request.GET["uid"]
+        else:
+            token = create_token(8)
+
+        answer = Answer(request.DATA).answer
         question_content = u"一个问题"
         if answer:
-            answer =  int(answer.answer["answer"])
-            token = create_token(8)
+            answer =  int(answer["answer"])
             climax(token, int(answer))
             results = pick_point(token)
             #print pick_point(token)
             feature = results[0]
             content = results[1].decode("utf-8")
             question_content = ask_problem(feature, content)
+        else:
+            return Response({"error": "fail"})
         question = Question(pk=1, question=question_content, uid=token)
         question_json = QuestionSerializer(question)
         return Response(question_json.data)
