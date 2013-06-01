@@ -5,12 +5,15 @@ define [
   'backbone'
   'views/question'
   'views/result'
-  ], (app, $, _, Backbone, QuestionView, ResultView) ->
+  'mods/movies'
+  ], (app, $, _, Backbone,
+    QuestionView, ResultView, Movies) ->
     class MainPage extends Backbone.View
       className: 'main-page'
       templateHtml: $('#main-page-tmpl').html()
       initialize: ->
         app.on 'getResult', @renderResult
+        app.movies = new Movies
 
       render: =>
         @$el.html(@templateHtml)

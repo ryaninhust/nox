@@ -2,10 +2,10 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'jquery', 'lodash', 'backbone', 'collections/questionSet', 'models/question'], function(app, $, _, Backbone, QuestionSet, Question) {
+  define(['app', 'jquery', 'lodash', 'backbone', 'collections/questionSet', 'models/question', 'mixins/movie-info'], function(app, $, _, Backbone, QuestionSet, Question, movieInfo) {
     var QuestionView, _ref;
 
-    return QuestionView = (function(_super) {
+    QuestionView = (function(_super) {
       __extends(QuestionView, _super);
 
       function QuestionView() {
@@ -22,7 +22,9 @@
       QuestionView.prototype.currentQuestion = new Question();
 
       QuestionView.prototype.events = {
-        'click button[type=submit]': 'answerQuestion'
+        'click button[type=submit]': 'answerQuestion',
+        'click .like': 'like',
+        'click .delete': 'delete'
       };
 
       QuestionView.prototype.initialize = function() {
@@ -50,12 +52,8 @@
         if (answer == null) {
           answer = {};
         }
-        return $.post('/get_question', answer).done(function(r) {
-          if (r.type === 'question') {
-            return _this.addQuestion(r);
-          } else {
-            return app.trigger('getResult', r);
-          }
+        return $.post('/questions', answer).done(function(r) {
+          return _this.addQuestion(r);
         }).fail(function(r) {
           var _ref1;
 
@@ -93,6 +91,8 @@
       return QuestionView;
 
     })(Backbone.View);
+    _.extend(QuestionView.prototype, movieInfo);
+    return QuestionView;
   });
 
 }).call(this);

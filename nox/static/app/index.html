@@ -30,20 +30,26 @@
             <div class="cover">
               <img src="{{= movie.cover_url}}" alt="{{= movie.name}}" />
             </div>
-            <div class="info">
+            <div class="info" data-id="{{= movie.id}}">
               <div class="info-cover">
                 <img src="{{= movie.cover_url}}" alt="{{= movie.name}}" />
               </div>
+              {{ if (movie.name.length){ }}
               <div class="title">{{= movie.name}}</div>
               <div class="info-action">
-                <button class="like">Like</button>
-                <button class="delete">Delete</button>
+                <button class="like icon"></button>
+                <button class="delete icon"></button>
               </div>
               <div class="info-detail">
                 <p class="director">导演 {{= movie.director}}</p>
                 <p class="director">演员 {{= movie.director}}</p>
                 <p class="summary">{{= movie.summary}}</p>
               </div>
+              {{ } else { }}
+              <div class="info-addition">
+                {{= movie.summary}}
+              </div>
+              {{ } }}
             </div>
           </div>
           <div class="bd">
