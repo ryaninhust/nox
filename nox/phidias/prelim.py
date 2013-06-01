@@ -35,7 +35,7 @@ class MongoUtil():
 class RedisUtil():
     r = redis.StrictRedis(host='localhost')
     tag_name_list = ['language', 'countries', 'tags', 'rate', 'people',
-                     'editors', 'directors', 'actors', 'year', 'date', 'length', 'types']
+                     'editors', 'directors', 'actors', 'year', 'length', 'types']
 
     def get_types(self, unique_id, tag_name):
         data = json.loads(self.r.get(unique_id))
@@ -68,8 +68,9 @@ class RedisUtil():
 
 def main():
     test = MongoUtil()
-    movie = list(test.collection.find({}, {'_id':False}))
+    #movie = list(test.collection.find({}, {'_id':False}))
     r = redis.StrictRedis(host='localhost')
+    movie = list(test.db.tops.find({}, {'_id':False}))
     r.set('1', json.dumps(movie))
 
 # main

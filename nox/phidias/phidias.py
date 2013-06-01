@@ -159,7 +159,7 @@ def get_top_points(feature_list, unique_id, Util=RedisUtil):
         feature_top = [(feature, i) for i in get_phidias_point(feature_set)]
         all_feature_points += feature_top
     all_feature_points.sort(key=lambda x: x[1][1], reverse=True)
-    return all_feature_points[:100]
+    return all_feature_points[:20]
 
 
 def set_feature_points(unique_id, points):
@@ -240,7 +240,7 @@ def pick_point(unique_id):
     print points
     points = [i.split(":") for i in points]
     while(1):
-        i = points[random.randint(0, 100)]
+        i = points[random.randint(0, 10)]
         if i[1] == 'None':
             util.r.sadd(unique_id + 'fp', "%s:%s" % tuple(i))
             continue
@@ -252,7 +252,7 @@ def pick_point(unique_id):
 def pick_movies(unique_id):
     util = RedisUtil()
     movies = get_data(unique_id)
-    return movies[:88]
+    return movies[:15]
 
 if __name__ == "__main__":
     s = datetime.datetime.now()
