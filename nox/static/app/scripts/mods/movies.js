@@ -10,7 +10,17 @@
       cover_url: '/static/images/sample_cover.jpg',
       id: '0',
       name: '',
-      director: '',
+      directors: '',
+      actors: '',
+      editors: '',
+      tags: '',
+      rate: '',
+      people: '',
+      language: '',
+      countries: '',
+      length: '',
+      types: '',
+      year: '',
       summary: '没有什么电影能满足你了!!（╯‵□′）╯︵'
     };
     Movies = (function() {

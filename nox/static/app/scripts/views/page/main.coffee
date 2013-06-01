@@ -23,18 +23,22 @@ define [
         @
 
       renderQuestion: =>
-        app.questionView?= new QuestionView()
-
-        @content.find('.bd').empty()
-          .append(app.questionView.render().el)
+        if not app.questionView
+          app.questionView = new QuestionView()
+          @content.find('.question-wrapper')
+            .replaceWith(app.questionView.render().el)
+        else
+          app.questionView.render()
 
       renderMoive: (moviesUrl)=>
-        app.movieView?= new MovieView()
+        if not app.movieView
+          app.movieView = new MovieView()
+          @content.find('.movie-panel')
+            .replaceWith(app.movieView.render().el)
+        else
+          app.movieView.render()
 
         app.movieView.setUrl moviesUrl
-
-        @content.find('.hd').empty()
-          .append(app.movieView.render().el)
 
       renderResult: (option={})=>
         resultView = new ResultView(option)
