@@ -2,7 +2,7 @@ import math
 
 import dpark
 
-from prelim import MongoUtil, RedisUtil
+from .prelim import MongoUtil, RedisUtil
 import redis
 import json
 import datetime
@@ -13,6 +13,8 @@ feature_list = ['language', 'countries', 'tags', 'rate', 'people',
 mountain_data_key = '1'
 
 dpark = dpark.context.DparkContext(master='local')
+
+
 class SplitCiterion(object):
     pass
 
@@ -47,7 +49,7 @@ def get_phidias_point(feature_set, citerion=CrossEncropyCiterion):
     through all feature_set to find
     a best split citerion
     """
-    feature_rdd = dpark.parallelize(feature_set)
+    feature_rdd = dpark.parallelize(feature_set, numSlices=1)
     total_count = feature_rdd.count()
 
     def _label_count(item):
@@ -68,7 +70,7 @@ def get_phidias_point(feature_set, citerion=CrossEncropyCiterion):
 
 def make_filter(feature, feature_point, data, np):
     feature_point = unicode(feature_point.decode('utf8'))
-    rdd = dpark.parallelize(data)
+    rdd = dpark.parallelize(data, numSlices=1)
 
     def _has_feature(item):
         if item[feature] == None:
@@ -167,6 +169,11 @@ def set_feature_points(unique_id, points):
         util.r.sadd(unique_id + 'fs', i)
 
 
+def get_data(unique_id, Util=RedisUtil):
+    util = Util()
+    return util.get_data(unique_id)
+
+
 def get_feature_points(unique_id):
     util = RedisUtil()
     return util.r.smembers(unique_id + 'fs')
@@ -196,14 +203,13 @@ def get_filter_points(unique_id):
 
 def climax(unique_id, np):
     if np == -1:
-        util = MongoUtil()
-        data = list(util.collection.find({},{'_id':False}))
         util = RedisUtil()
+        data = util.get_data('1')
         util.set_data(unique_id, data)
         util.r.delete(unique_id+'fp')
         feature_points = get_top_points(feature_list, unique_id)
         feature_points = ["%s:%s" % (i[0], i[
-                                        1][0]) for i in feature_points]
+            1][0]) for i in feature_points]
         set_feature_points(unique_id, feature_points)
         return None
     if np == 2:
@@ -222,7 +228,7 @@ def climax(unique_id, np):
         set_data(unique_id, new_data)
         feature_points = get_top_points(feature_list, unique_id)
         feature_points = ["%s:%s" % (i[0], i[
-                                        1][0]) for i in feature_points]
+            1][0]) for i in feature_points]
         filtered = list(set(feature_points) - get_filter_points(unique_id))
         set_feature_points(unique_id, filtered)
         return None
@@ -234,7 +240,7 @@ def pick_point(unique_id):
     print points
     points = [i.split(":") for i in points]
     while(1):
-        i = points[random.randint(0,100)]
+        i = points[random.randint(0, 100)]
         if i[1] == 'None':
             util.r.sadd(unique_id + 'fp', "%s:%s" % tuple(i))
             continue
@@ -250,7 +256,7 @@ def pick_movies(unique_id):
 
 if __name__ == "__main__":
     s = datetime.datetime.now()
-    climax('2',-1)
+    climax('2', -1)
     print pick_point('2')
     climax('2', 1)
     # print pick_movies('1')
