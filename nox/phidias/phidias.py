@@ -5,12 +5,13 @@ import dpark
 from prelim import MongoUtil, RedisUtil
 import redis
 import json
+import datetime
 
 feature_list = ['language', 'countries', 'tags', 'rate', 'people',
                 'editors', 'directors', 'actors', 'date', 'length', 'types']
 mountain_data_key = '1'
 
-
+dpark = dpark.context.DparkContext(master='local')
 class SplitCiterion(object):
     pass
 
@@ -150,7 +151,6 @@ def get_top_points(feature_list, unique_id, Util=RedisUtil):
         feature_top = [(feature, i) for i in get_phidias_point(feature_set)]
         all_feature_points += feature_top
     all_feature_points.sort(key=lambda x: x[1][1], reverse=True)
-    print all_feature_points[:100]
     return all_feature_points[:100]
 
 
@@ -173,7 +173,7 @@ def get_feature_point(unique_id):
 
 def set_feature_point(unique_id, point):
     util = RedisUtil()
-    util.r.set(unique_id, point)
+    util.r.set(unique_id + 'f', point)
 
 
 def append_filter_points(unique_id):
@@ -235,6 +235,9 @@ def pick_movies(unique_id):
     return movies[:88]
 
 if __name__ == "__main__":
-    print climax('2',-1)
+    s = datetime.datetime.now()
+    print climax('2',1)
     # print pick_movies('1')
     print pick_point('2')
+    e = datetime.datetime.now()
+    print e-s
