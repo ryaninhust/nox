@@ -137,27 +137,24 @@ class MovieViewSet(viewsets.ViewSetMixin,
             movie = Movie(
                 id=movie["movie_id"],
                 name=movie["name"],
-                directors=",".join(flatten(movie[
-                                   "directors"])) if movie["directors"] else "",
-                actors=",".join(flatten(movie[
-                                "actors"])) if movie["actors"] else "",
-                language=",".join(flatten(movie[
-                                  "language"])) if movie["actors"] else "",
+                directors=",".join(flatten(movie["directors"])) if movie["directors"] else "",
+                actors=",".join(flatten(movie["actors"])) if movie["actors"] else "",
+                language=",".join(flatten(movie["language"])) if movie["language"] else "",
                 types=",".join(flatten(movie[
-                               "types"])) if movie["types"] else "",
+                    "types"])) if movie["types"] else "",
                 countries=",".join(flatten(movie[
-                                   "countries"])) if movie["countries"] else "",
+                    "countries"])) if movie["countries"] else "",
                 year=movie["year"] if movie["year"] else "",
                 length=movie["length"] if movie["length"] else "",
                 rate=movie["rate"],
                 editors=",".join(flatten(movie[
-                                 "editors"])) if movie["editors"] else "",
+                    "editors"])) if movie["editors"] else "",
                 people=movie["people"],
                 tags=",".join(flatten(movie[
-                              "tags"])) if movie["people"] else "",
+                    "tags"])) if movie["tags"] else "",
                 cover_url="/photos/" + movie["movie_id"],
                 summary=summary,
-            )
+                )
             print movie
             new_movies.append(movie)
         movie_json = MovieSerializer(new_movies)
@@ -165,7 +162,7 @@ class MovieViewSet(viewsets.ViewSetMixin,
 
 
 class QuestionViewSet(viewsets.ViewSetMixin,
-                      generics.GenericAPIView):
+        generics.GenericAPIView):
     serializer_class = AnswerSerializer
 
     def answer_question(self, request, *args, **kwargs):
