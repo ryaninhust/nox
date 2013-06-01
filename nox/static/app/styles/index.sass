@@ -62,9 +62,9 @@ button
     z-index: 20
 
   .movie-panel
-    @include flex
-    @include flex-center
     height: $circle-size
+    .cover
+      margin: 0 auto
     .info
       display: none
     &:hover 
@@ -178,6 +178,8 @@ button
       width: $box-size
     em
       font-style: normal
+      border-bottom: 1px dotted #aaa
+      display: block
     .box
       padding: 10px
       background: rgba(0,0,0, .5)
@@ -225,8 +227,8 @@ button
     padding: 0 40px
     border-radius: 0 0 $radius $radius
     //background: #060709
-    background: rbga(0, 0, 0, 0.5)
-    box-shadow: inset 0px 4px 10px 4px rgba(0, 0, 0, 0.5)
+    background: rgba(0, 0, 0, 0.6)
+    box-shadow: inset 0px 4px 10px 4px rgba(0, 0, 0, 0.2)
     button
       margin-top: ($action-height - 30px)/ 2
       height: 30px
