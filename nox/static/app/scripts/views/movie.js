@@ -25,7 +25,8 @@
         'mouseenter': 'openMoviePanel',
         'mouseleave': 'closeMoviePanel',
         'click .like': 'like',
-        'click .delete': 'delete'
+        'click .delete': 'delete',
+        'click .restart': 'restart'
       };
 
       MovieView.prototype.initialize = function() {
@@ -80,6 +81,10 @@
         id = infoElem.data('id');
         this.movies["delete"](id);
         return this;
+      };
+
+      MovieView.prototype.restart = function(e) {
+        return Backbone.router.navgative('/');
       };
 
       return MovieView;

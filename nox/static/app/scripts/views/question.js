@@ -31,7 +31,8 @@
         app.on('panel:show', this.hideUp);
         app.on('panel:hide', this.showDown);
         this.collection.on('add', this.gotNewQuestion, this);
-        return this.getQuestion();
+        this.getQuestion();
+        return this.hideUp();
       };
 
       QuestionView.prototype.hideUp = function() {
@@ -43,13 +44,8 @@
       };
 
       QuestionView.prototype.render = function() {
-        var question,
-          _this = this;
+        var question;
 
-        this.hideUp();
-        _.delay(function() {
-          return _this.showDown();
-        }, 100);
         question = this.currentQuestion.toRenderJSON();
         this.$el.html(this.template(question));
         return this;
@@ -58,6 +54,7 @@
       QuestionView.prototype.gotNewQuestion = function(model, collection) {
         this.currentQuestion = model;
         this.render();
+        this.showDown();
         return this;
       };
 
@@ -89,6 +86,7 @@
       QuestionView.prototype.answerQuestion = function(e) {
         var answer;
 
+        this.hideUp();
         e = $(e.target);
         answer = {
           answer: e.val()

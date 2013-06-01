@@ -20,16 +20,14 @@ define [
         @collection.on('add', @gotNewQuestion, this)
         # first question fire
         @getQuestion()
+        @hideUp()
+
       hideUp: =>
         @$el.addClass('hide-up')
       showDown: =>
         @$el.removeClass('hide-up')
         
       render: ()->
-        @hideUp()
-        _.delay(()=>
-          @showDown()
-        , 100)
         question = @currentQuestion.toRenderJSON()
         @$el.html(@template(question))
         @
@@ -37,6 +35,7 @@ define [
       gotNewQuestion: (model, collection)->
         @currentQuestion = model
         @render()
+        @showDown()
         @
 
       getQuestion: (answer={answer: 2})->
@@ -55,6 +54,7 @@ define [
           )
 
       answerQuestion: (e)->
+        @hideUp()
         e = $(e.target)
         answer =
           answer: e.val()

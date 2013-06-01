@@ -14,6 +14,7 @@ define [
         'mouseleave': 'closeMoviePanel'
         'click .like': 'like'
         'click .delete': 'delete'
+        'click .restart': 'restart'
 
       initialize: ()->
         @movies = new Movies()
@@ -56,3 +57,6 @@ define [
         id = infoElem.data('id')
         @movies.delete(id)
         @
+
+      restart: (e)->
+        Backbone.router.navgative('/')
