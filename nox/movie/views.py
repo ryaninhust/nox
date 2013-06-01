@@ -20,6 +20,7 @@ from rest_framework.response import Response
 from movie.models import Movie, Question, Answer
 from movie.serializers import AnswerSerializer, QuestionSerializer, MovieSerializer
 from phidias.phidias import pick_point, pick_movies, climax
+from phidias.prelim import flatten
 
 
 r = redis.StrictRedis(host='localhost')
@@ -120,19 +121,34 @@ class MovieViewSet(viewsets.ViewSetMixin,
         mixins.SubModelMixin):
     serializer_class = MovieSerializer
     def get_movies(self, request, *args, **kwargs):
-        movies = []
-
-        movie = Movie(id="3642843", name="a", directors="a", actors="a",
-                types="a", countries="a", language='中文',
-                year='a', length='110', rate='2.4',
-                people='200', tags="a",editors="editors",cover_url="/photos/3642843", summary="")
-        bmovie = Movie(id="11529526", name="b", directors="b", actors="b",
-                types="b", countries="b", language="英语",
-                year='b', length='110', rate='3.5', editors="editorsb",
-                people='200', tags="b", cover_url="/photos/11529526", summary="总结一个故事")
-        movies.append(movie)
-        movies.append(bmovie)
-        movie_json = MovieSerializer(movies)
+        token = request.GET["uid"]
+        new_movies = []
+        movies =  pick_movies(token)
+        for movie in movies:
+            if movie.has_key("summary"):
+                summary = movie["summary"]
+            else:
+                summary = ""
+            movie = Movie(
+                id=movie["movie_id"],
+                name=movie["name"],
+                directors=",".join(flatten(movie["directors"])) if movie["directors"] else "",
+                actors=",".join(flatten(movie["actors"])) if movie["actors"] else "",
+                language=",".join(flatten(movie["language"])) if movie["actors"] else "",
+                types=",".join(flatten(movie["types"])) if movie["types"] else "",
+                countries=",".join(flatten(movie["countries"])) if movie["countries"] else "",
+                year=movie["year"] if movie["year"] else "" ,
+                length=movie["length"] if movie["length"] else "",
+                rate=movie["rate"] ,
+                editors=",".join(flatten(movie["editors"])) if movie["editors"] else "",
+                people=movie["people"],
+                tags=",".join(flatten(movie["tags"])) if movie["people"] else "",
+                cover_url="/photos/" + movie["movie_id"],
+                summary=summary,
+            )
+            print movie
+            new_movies.append(movie)
+        movie_json = MovieSerializer(new_movies)
         return Response(movie_json.data)
 
 
@@ -140,18 +156,16 @@ class QuestionViewSet(viewsets.ViewSetMixin,
         generics.GenericAPIView):
     serializer_class = AnswerSerializer
     def answer_question(self, request, *args, **kwargs):
-        if hasattr(request.GET, "uid"):
+        try:
             token = request.GET["uid"]
-        else:
+        except:
             token = create_token(8)
-
         answer = Answer(request.DATA).answer
         question_content = u"一个问题"
         if answer:
             answer =  int(answer["answer"])
             climax(token, int(answer))
             results = pick_point(token)
-            #print pick_point(token)
             feature = results[0]
             content = results[1].decode("utf-8")
             question_content = ask_problem(feature, content)

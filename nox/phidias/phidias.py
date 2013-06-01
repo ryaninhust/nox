@@ -229,11 +229,14 @@ def pick_point(unique_id):
     points = list(util.r.smembers(unique_id + 'fs'))
     points = [i.split(":") for i in points]
     points.sort(key=lambda x: x[2], reverse=True)
+    print points
     for i in points:
         if i[1] == 'None':
+            print " no   set set set!!!"
             util.r.sadd(unique_id + 'fp', "%s:%s:%s" % tuple(i))
             continue
         else:
+            print "set set set!!!"
             set_feature_point(unique_id, "%s:%s:%s" % tuple(i))
             return i
 
