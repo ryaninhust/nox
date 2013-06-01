@@ -27,3 +27,4 @@ class MovieSerializer(serializers.Serializer):
     people = serializers.CharField(max_length=100)
     tags = serializers.CharField(max_length=250)
     cover_url = serializers.CharField(max_length=250)
+    summary = serializers.CharField(max_length=700)

@@ -125,11 +125,11 @@ class MovieViewSet(viewsets.ViewSetMixin,
         movie = Movie(id="3642843", name="a", directors="a", actors="a",
                 types="a", countries="a", language='中文',
                 year='a', length='110', rate='2.4',
-                people='200', tags="a",editors="editors",cover_url="/photos/3642843")
+                people='200', tags="a",editors="editors",cover_url="/photos/3642843", summary="")
         bmovie = Movie(id="11529526", name="b", directors="b", actors="b",
                 types="b", countries="b", language="英语",
                 year='b', length='110', rate='3.5', editors="editorsb",
-                people='200', tags="b", cover_url="/photos/11529526")
+                people='200', tags="b", cover_url="/photos/11529526", summary="总结一个故事")
         movies.append(movie)
         movies.append(bmovie)
         movie_json = MovieSerializer(movies)
