@@ -13,6 +13,8 @@
         <link rel="stylesheet" href="static/styles/index.css">
     </head>
     <body>
+        <div class="background-image">
+        </div>
         <!-- Main container. -->
         <div id="main" class="container">
         </div>
@@ -26,8 +28,29 @@
 
         <script id="question-dialog-tmpl" type="template">
           <div class="hd">
-            <div class="avatar">
-              <img src="" alt="" />
+            <div class="cover">
+              <img src="static/{{= movie.cover_url}}" alt="{{= movie.name}}" />
+            </div>
+            <div class="info" data-id="{{= movie.id}}">
+              <div class="info-cover">
+                <img src="static/{{= movie.cover_url}}" alt="{{= movie.name}}" />
+              </div>
+              {{ if (movie.name.length){ }}
+              <div class="title">{{= movie.name}}</div>
+              <div class="info-action">
+                <button class="like icon"></button>
+                <button class="delete icon"></button>
+              </div>
+              <div class="info-detail">
+                <p class="director">导演 {{= movie.director}}</p>
+                <p class="director">演员 {{= movie.director}}</p>
+                <p class="summary">{{= movie.summary}}</p>
+              </div>
+              {{ } else { }}
+              <div class="info-addition">
+                {{= movie.summary}}
+              </div>
+              {{ } }}
             </div>
           </div>
           <div class="bd">
@@ -37,9 +60,9 @@
               </blockquote>
             </div>
             <div class="select">
-              <button class="yes" type="submit" name="result" value="1">是的</button>
-              <button class="no" type="submit" name="result" value="-1">不是的</button>
-              <button class="unknow" type="submit" name="result" value="0">不知道</button>
+              <button class="unknow" type="submit" name="result" value="0">Emm..</button>
+              <button class="yes" type="submit" name="result" value="1">Yes!</button>
+              <button class="no" type="submit" name="result" value="-1">No!</button>
             </div>
           </div>
         </script>

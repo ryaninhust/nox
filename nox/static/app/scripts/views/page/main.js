@@ -3,7 +3,7 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'jquery', 'lodash', 'backbone', 'views/question', 'views/result'], function(app, $, _, Backbone, QuestionView, ResultView) {
+  define(['app', 'jquery', 'lodash', 'backbone', 'views/question', 'views/result', 'mods/movies'], function(app, $, _, Backbone, QuestionView, ResultView, Movies) {
     var MainPage, _ref;
 
     return MainPage = (function(_super) {
@@ -21,7 +21,8 @@
       MainPage.prototype.templateHtml = $('#main-page-tmpl').html();
 
       MainPage.prototype.initialize = function() {
-        return app.on('getResult', this.renderResult);
+        app.on('getResult', this.renderResult);
+        return app.movies = new Movies;
       };
 
       MainPage.prototype.render = function() {
