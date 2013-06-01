@@ -19,7 +19,7 @@ define [
         @getQuestion()
         
       render: ()->
-        question = @currentQuestion.toJSON()
+        question = @currentQuestion.toRenderJSON()
         @$el.html(@template(question))
         @
 

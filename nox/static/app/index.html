@@ -25,8 +25,13 @@
 
         <script id="question-dialog-tmpl" type="template">
           <div class="hd">
-            <div class="avatar">
-              <img src="" alt="" />
+            <div class="cover">
+              <img src="{{= movie.cover_url}}" alt="{{= movie.name}}" />
+            </div>
+            <div class="info">
+              <p class="name">{{= movie.name}}</p>
+              <p class="director">{{= movie.director}}</p>
+              <p>and so on...</p>
             </div>
           </div>
           <div class="bd">
