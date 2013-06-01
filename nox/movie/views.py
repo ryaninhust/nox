@@ -22,6 +22,10 @@ def index_view(request):
 def photo_view(request, pid):
     photo_url = "http://img3.douban.com/lpic/s" + pid + ".jpg"
     filename = pid + ".jpg"
+    cover_folder = os.path.abspath(os.path.join(settings.COVER_PATH, os.pardir,os.pardir, "cover/"))
+    if not os.path.exists(cover_folder):
+        os.mkdir(cover_folder)
+
     dest_addr = os.path.abspath(os.path.join(settings.COVER_PATH, os.pardir,os.pardir, "cover/", filename))
     if os.path.exists(dest_addr):
         file_content = open(dest_addr).read()
