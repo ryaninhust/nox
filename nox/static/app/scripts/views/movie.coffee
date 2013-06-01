@@ -10,10 +10,11 @@ define [
       className: 'movie-panel'
       template: _.template($('#movie-panel-tmpl').html())
       events:
-        'mouseenter .hd': 'openMoviePanel'
-        'mouseleave .hd': 'closeMoviePanel'
+        'mouseenter': 'openMoviePanel'
+        'mouseleave': 'closeMoviePanel'
         'click .like': 'like'
         'click .delete': 'delete'
+
       initialize: ()->
         @movies = new Movies()
         @movies.on('changed', @render)
@@ -24,15 +25,19 @@ define [
         @movies.fetch(url)
 
       render: ()=>
+        debugger
         movie = @movies.bestOne()
         @$el.html(@template(movie))
+        @delegateEvents()
         @
 
       openMoviePanel: =>
+        app.trigger('panel:show')
         console.log('open')
         @
 
       closeMoviePanel: =>
+        app.trigger('panel:hide')
         console.log('close')
         @
 
