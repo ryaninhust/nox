@@ -66,7 +66,7 @@
 
         if (answer == null) {
           answer = {
-            value: 2
+            answer: 2
           };
         }
         return $.post('/questions/', answer).done(function(r) {
@@ -91,7 +91,7 @@
 
         e = $(e.target);
         answer = {
-          value: e.val()
+          answer: e.val()
         };
         this.getQuestion(answer);
         return this;
