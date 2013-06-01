@@ -150,13 +150,15 @@ def get_top_points(feature_list, unique_id, Util=RedisUtil):
         feature_top = [(feature, i) for i in get_phidias_point(feature_set)]
         all_feature_points += feature_top
     all_feature_points.sort(key=lambda x: x[1][1], reverse=True)
+    print all_feature_points[:100]
     return all_feature_points[:100]
 
 
 def set_feature_points(unique_id, points):
     util = RedisUtil()
+    util.r.delete(unique_id + 'fs')
     for i in points:
-        util.r.sadd(unique_id+'fs', i)
+        util.r.sadd(unique_id + 'fs', i)
 
 
 def get_feature_points(unique_id):
@@ -187,6 +189,8 @@ def get_filter_points(unique_id):
 
 def climax(unique_id, np):
     if np == -1:
+        until = RedisUtil()
+        until.r.delete(unique_id+'fp')
         feature_points = get_top_points(feature_list, '1')
         feature_points = ["%s:%s:%f" % (i[0], i[
                                         1][0], i[1][1]) for i in feature_points]
@@ -216,8 +220,13 @@ def pick_point(unique_id):
     points = list(util.r.smembers(unique_id + 'fs'))
     points = [i.split(":") for i in points]
     points.sort(key=lambda x: x[2], reverse=True)
-    set_feature_point(unique_id, "%s:%s:%s" % tuple(points[0]))
-    return points[0]
+    for i in points:
+        if i[1] == 'None':
+            util.r.sadd(unique_id + 'fp', "%s:%s:%s" % tuple(i))
+            continue
+        else:
+            set_feature_point(unique_id, "%s:%s:%s" % tuple(i))
+            return i
 
 
 def pick_movies(unique_id):
@@ -225,7 +234,7 @@ def pick_movies(unique_id):
     movies = get_data(unique_id)
     return movies[:88]
 
-
 if __name__ == "__main__":
+    print climax('2',-1)
     # print pick_movies('1')
     print pick_point('2')
