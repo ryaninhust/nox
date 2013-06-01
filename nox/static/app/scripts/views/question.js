@@ -1,5 +1,6 @@
 (function() {
-  var __hasProp = {}.hasOwnProperty,
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define(['app', 'jquery', 'lodash', 'backbone', 'collections/questionSet', 'models/question'], function(app, $, _, Backbone, QuestionSet, Question) {
@@ -9,11 +10,12 @@
       __extends(QuestionView, _super);
 
       function QuestionView() {
-        _ref = QuestionView.__super__.constructor.apply(this, arguments);
+        this.showDown = __bind(this.showDown, this);
+        this.hideUp = __bind(this.hideUp, this);        _ref = QuestionView.__super__.constructor.apply(this, arguments);
         return _ref;
       }
 
-      QuestionView.prototype.className = 'dialog-wrapper';
+      QuestionView.prototype.className = 'question-wrapper';
 
       QuestionView.prototype.template = _.template($('#question-dialog-tmpl').html());
 
@@ -26,13 +28,28 @@
       };
 
       QuestionView.prototype.initialize = function() {
+        app.on('panel:show', this.hideUp);
+        app.on('panel:hide', this.showDown);
         this.collection.on('add', this.gotNewQuestion, this);
         return this.getQuestion();
       };
 
-      QuestionView.prototype.render = function() {
-        var question;
+      QuestionView.prototype.hideUp = function() {
+        return this.$el.addClass('hide-up');
+      };
 
+      QuestionView.prototype.showDown = function() {
+        return this.$el.removeClass('hide-up');
+      };
+
+      QuestionView.prototype.render = function() {
+        var question,
+          _this = this;
+
+        this.hideUp();
+        _.delay(function() {
+          return _this.showDown();
+        }, 100);
         question = this.currentQuestion.toRenderJSON();
         this.$el.html(this.template(question));
         return this;
@@ -48,14 +65,12 @@
         var _this = this;
 
         if (answer == null) {
-          answer = {};
+          answer = {
+            value: 2
+          };
         }
-        return $.post('/get_question', answer).done(function(r) {
-          if (r.type === 'question') {
-            return _this.addQuestion(r);
-          } else {
-            return app.trigger('getResult', r);
-          }
+        return $.post('/questions/', answer).done(function(r) {
+          return _this.addQuestion(r);
         }).fail(function(r) {
           var _ref1;
 
@@ -87,6 +102,7 @@
 
         queston = new Question(gotQuestion);
         this.collection.add(queston);
+        app.trigger('getMovies', gotQuestion.movies_url);
         return this;
       };
 

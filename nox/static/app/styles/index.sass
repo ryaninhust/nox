@@ -1,8 +1,11 @@
-@import "h5bp.css"
-@import "bootstrap.css"
-@import "compass/css3"
+@import h5bp
+@import bootstrap
+@import compass/css3
+@import fonts
 
 $circle-size: 320px
+$radius: 10px
+$white-bg: #ececec
 
 html, body, .container, .main-page
   height: 100%
@@ -16,12 +19,12 @@ html, body, .container, .main-page
   top: -50%
   left: -50%
   //-webkit-filter: blur(40px)
-  background: url(/images/bg2.jpg)
+  background: url(/static/images/bg2.jpg)
 
 @mixin flex()
   display: flex
   display: -webkit-flex
-  display: -mox-flex
+  display: -moz-flex
 
 @mixin flex-center()
   @include experimental(justify-content, center)
@@ -46,6 +49,12 @@ button
   position: relative
   .hd, .bd
     height: 100%
+    position: relative
+  .hd
+    z-index: 20
+  .bd
+    z-index: 10
+
   .hd
     @include flex
     @include flex-center
@@ -56,14 +65,16 @@ button
       .info
         display: block
     // big area
-  .bd
+  .question-wrapper
     margin-top: 40px
-    border-radius: 20px
-    background: #ffffff
+    border-radius: $radius
+    background: $white-bg
     //  try to add arrow
     position: relative
     $arrow-height: 20px
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4)
+    z-index: 10
+    @include experimental(transition, all 0.1s)
     &:after
       content: ' '
       position: absolute
@@ -76,12 +87,16 @@ button
       border-top: $arrow-height solid transparent
       border-left: $arrow-height solid transparent
       border-right: $arrow-height solid transparent
-      border-bottom: $arrow-height solid #ffffff
+      border-bottom: $arrow-height solid $white-bg
+    &.hide-up
+      margin-top: -200px
+      @include experimental(transform, scale(0.1))
+
   .cover
     overflow: hidden
     height: $circle-size
     width: $circle-size
-    background: #ffffff
+    background: $white-bg
     border-radius: 50%
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4)
     position: relative
@@ -95,13 +110,13 @@ button
       box-shadow: inset 0px 0px 0px 10px rgba(255,255,255,0.6)
   $box-size: $circle-size + 10px
   .info
-    background: #fff
-    border-radius: 20px
+    background: $white-bg
+    border-radius: $radius
     position: absolute
     width: $box-size
     height: $box-size
     margin-left: - $box-size / 2 
-    margin-top: - $box-size / 2 + 60px
+    margin-top: - $box-size / 2
     top: 50%
     left: 50%
     overflow: hidden
@@ -123,16 +138,29 @@ button
     height: $info-action-height
     text-align: right
     button
-      min-width: 100px
+      //min-width: 100px
       text-shadow: 1px 1px 1px #000
       font-size: 25px
       display: inline-block
       color: #fff
+  .info-addition-action
+    margin-top: 20px
+    text-align: center
   .info-detail
     font-size: 12px
     padding: 0px 10px 10px
     p 
       margin: 0
+  .info-addition
+    margin-top: 20px
+    text-align: center
+
+  .like:before
+    content: '\e007'
+  .delete:before
+    content: '\e00b'
+  .restart:before
+    content: '\e02b'
 
   $dialog-height: 200px
   $action-height: 70px
@@ -141,18 +169,22 @@ button
   .question
     overflow: hidden
     height: $dialog-height - $action-height
+    @include flex
+    @include flex-center
 
   blockquote
-    padding: 40px 40px 0
+    padding: 0px 40px 0
+    margin: 0
     font-size: 18px
     border: none
     &:before, &:after
       content: ' '
-      padding-left: 20px
+      font-size: 30px
+      color: #6f6f6f
     &:before
-      background: url('http://img3.douban.com/pics/quotel.gif') no-repeat 4px
+      content: '“'
     &:after
-      background: url('http://img3.douban.com/pics/quoter.gif') no-repeat 4px
+      content: "”"
 
   .select
     @include flex
@@ -160,7 +192,7 @@ button
     @include experimental(justify-content, space-between)
     @include experimental(flex-wrap, wrap)
     padding: 0 40px
-    border-radius: 0 0 20px 20px
+    border-radius: 0 0 $radius $radius
     background: #060709
     box-shadow: inset 0px 4px 10px 4px black
     button

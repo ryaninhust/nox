@@ -1,3 +1,4 @@
+{% verbatim %}
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -9,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <title>x项目</title>
-        <link rel="stylesheet" href="styles/index.css">
+        <link rel="stylesheet" href="static/styles/index.css">
     </head>
     <body>
         <div class="background-image">
@@ -21,42 +22,62 @@
         <script id="main-page-tmpl" type="template">
           <header></header>
           <div class="content">
+            <div class="dialog-wrapper">
+              <div class="hd"></div>
+              <div class="bd"></div>
+            </div>
           </div>
           <footer></footer>
         </script>
 
-        <script id="question-dialog-tmpl" type="template">
-          <div class="hd">
-            <div class="cover">
-              <img src="{{= movie.cover_url}}" alt="{{= movie.name}}" />
-            </div>
-            <div class="info">
-              <div class="info-cover">
-                <img src="{{= movie.cover_url}}" alt="{{= movie.name}}" />
-              </div>
-              <div class="title">{{= movie.name}}</div>
-              <div class="info-action">
-                <button class="like">Like</button>
-                <button class="delete">Delete</button>
-              </div>
-              <div class="info-detail">
-                <p class="director">导演 {{= movie.director}}</p>
-                <p class="director">演员 {{= movie.director}}</p>
-                <p class="summary">{{= movie.summary}}</p>
-              </div>
-            </div>
+        <script id="movie-panel-tmpl" type="template">
+          <div class="cover">
+            <img src="{{= cover_url}}" alt="{{= name}}" />
           </div>
-          <div class="bd">
-            <div class="question">
-              <blockquote>
-                {{= question }}
-              </blockquote>
+          <div class="info" data-id="{{= id}}">
+            <div class="info-cover">
+              <img src="{{= cover_url}}" alt="{{= name}}" />
             </div>
-            <div class="select">
-              <button class="unknow" type="submit" name="result" value="0">Emm..</button>
-              <button class="yes" type="submit" name="result" value="1">Yes!</button>
-              <button class="no" type="submit" name="result" value="-1">No!</button>
+            {{ if (name.length){ }}
+            <div class="title">{{= name}}</div>
+            <div class="info-action">
+              <button class="like icon"></button>
+              <button class="delete icon"></button>
             </div>
+            <div class="info-detail">
+              <p class="director">导演 {{= directors}}</p>
+              <p class="director">演员 {{= actors}}</p>
+              <p class="summary">{{= tags}}</p>
+            </div>
+            {{ } else { }}
+            <div class="info-addition">
+              {{= summary}}
+            </div>
+            <div class="info-addition-action">
+              <button class="restart icon">&nbsp; 好吧重来</button>
+            </div>
+            {{ } }}
+          </div>
+          <div class="back-panel">
+            <section class="left-top"></section>
+            <section class="left-mid"></section>
+            <section class="left-bot"></section>
+            <section class="right-top"></section>
+            <section class="right-mid"></section>
+            <section class="right-bot"></section>
+          </div>
+        </script>
+
+        <script id="question-dialog-tmpl" type="template">
+          <div class="question">
+            <blockquote>
+              {{= question }}
+            </blockquote>
+          </div>
+          <div class="select">
+            <button class="unknow" type="submit" name="result" value="0">Emm..</button>
+            <button class="yes" type="submit" name="result" value="1">Yes!</button>
+            <button class="no" type="submit" name="result" value="-1">No!</button>
           </div>
         </script>
 
@@ -86,7 +107,7 @@
         <!-- Add your site or application content here -->
 
         <!-- build:js scripts/amd-app.js -->
-        <script data-main="scripts/config" src="scripts/libs/require.js"></script>
+        <script data-main="static/scripts/config" src="static/scripts/libs/require.js"></script>
         <!-- endbuild -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -98,3 +119,4 @@
         <!--</script>-->
     </body>
 </html>
+{% endverbatim %}

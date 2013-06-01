@@ -6,19 +6,30 @@ define [
   'collections/questionSet'
   'models/question'
   ], (app, $, _, Backbone, QuestionSet, Question)->
+
     class QuestionView extends Backbone.View
-      className: 'dialog-wrapper'
+      className: 'question-wrapper'
       template: _.template($('#question-dialog-tmpl').html())
       collection: new QuestionSet()
       currentQuestion: new Question()
       events:
         'click button[type=submit]': 'answerQuestion'
       initialize: ->
+        app.on('panel:show', @hideUp)
+        app.on('panel:hide', @showDown)
         @collection.on('add', @gotNewQuestion, this)
         # first question fire
         @getQuestion()
+      hideUp: =>
+        @$el.addClass('hide-up')
+      showDown: =>
+        @$el.removeClass('hide-up')
         
       render: ()->
+        @hideUp()
+        _.delay(()=>
+          @showDown()
+        , 100)
         question = @currentQuestion.toRenderJSON()
         @$el.html(@template(question))
         @
@@ -28,13 +39,10 @@ define [
         @render()
         @
 
-      getQuestion: (answer={})->
-        $.post('/get_question', answer)
+      getQuestion: (answer={value: 2})->
+        $.post('/questions/', answer)
           .done((r)=>
-            if r.type is 'question'
-              @addQuestion(r)
-            else
-              app.trigger('getResult', r)
+            @addQuestion(r)
           )
           .fail((r)=>
             # 测试数据
@@ -56,4 +64,5 @@ define [
       addQuestion: (gotQuestion)->
         queston = new Question(gotQuestion)
         @collection.add(queston)
+        app.trigger 'getMovies', gotQuestion.movies_url
         @

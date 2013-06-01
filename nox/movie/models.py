@@ -5,21 +5,23 @@ from django.db import models
 
 class Movie(object):
 
-    def __init__(self, name, director, actors,
-                 types, country, language, date,
-                 length, rate, watcher, tags):
+    def __init__(self,id, name, directors, actors,
+                 types, countries, editors, language, year,
+                 length, rate, people, tags, cover_url):
+        self.id = id
         self.name = name
-        self.director = director
+        self.directors = directors
         self.actors = actors
+        self.editors = editors
         self.types = types
-        self.country = country
+        self.countries = countries
         self.language = language
-        self.date = date
+        self.year = year
         self.length = length
         self.rate = rate
-        self.watcher = watcher
+        self.people = people
         self.tags = tags
-
+        self.cover_url = cover_url
 
 class Answer(object):
 
