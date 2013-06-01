@@ -33,7 +33,7 @@ define [
         @
 
       getQuestion: (answer={})->
-        $.post('/questions', answer)
+        $.post('/questions/', answer)
           .done((r)=>
             @addQuestion(r)
           )

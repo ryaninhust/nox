@@ -58,6 +58,8 @@ MEDIA_ROOT = ''
 MEDIA_URL = ''
 
 PATH = os.path.dirname(__file__)
+
+COVER_PATH = os.path.realpath(__file__)
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.

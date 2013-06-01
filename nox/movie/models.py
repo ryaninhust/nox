@@ -5,16 +5,16 @@ from django.db import models
 
 class Movie(object):
 
-    def __init__(self, name, director, actors,
-                 types, country, language, date,
+    def __init__(self, name, directors, actors,
+                 types, countries, languages, year,
                  length, rate, watcher, tags):
         self.name = name
-        self.director = director
+        self.directors = directors
         self.actors = actors
         self.types = types
-        self.country = country
-        self.language = language
-        self.date = date
+        self.countries = countries
+        self.languages = languages
+        self.year = year
         self.length = length
         self.rate = rate
         self.watcher = watcher

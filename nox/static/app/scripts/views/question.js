@@ -52,7 +52,7 @@
         if (answer == null) {
           answer = {};
         }
-        return $.post('/questions', answer).done(function(r) {
+        return $.post('/questions/', answer).done(function(r) {
           return _this.addQuestion(r);
         }).fail(function(r) {
           var _ref1;

@@ -9,6 +9,7 @@ question_view = views.QuestionViewSet.as_view({'post': 'answer_question'})
 question_movies = views.QuestionViewSet.as_view({'get': 'ask_question'})
 urlpatterns = patterns('',
     url(r'^$', views.index_view, name='index_view'),
+    url(r'^photos/(?P<pid>[0-9]+)$', views.photo_view, name='photo_view'),
     url(r'^questions/$', question_view, name='question_view'),
     url(r'^questions/(?P<pk>[0-9]+)/movies',
          question_movies, name='question_movies')
