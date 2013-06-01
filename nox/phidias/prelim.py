@@ -68,7 +68,9 @@ class RedisUtil():
 
 def main():
     test = MongoUtil()
-    print test.get_types('types')
+    movie = list(test.collection.find({}, {'_id':False}))
+    r = redis.StrictRedis(host='localhost')
+    r.set(1, json.dumps(movie))
 
 # main
 if __name__ == "__main__":
