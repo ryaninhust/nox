@@ -43,6 +43,7 @@ define [
       getQuestion: (answer={answer: -1})->
         $.post('/questions/', answer)
           .done((r)=>
+            app.uid = r.uid
             @addQuestion(r)
           )
           .fail((r)=>
@@ -59,6 +60,7 @@ define [
         @hideUp()
         e = $(e.target)
         answer =
+          uid: app.uid
           answer: e.val()
         @getQuestion(answer)
         @

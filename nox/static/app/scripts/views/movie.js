@@ -56,6 +56,7 @@
       MovieView.prototype.render = function() {
         var movie;
 
+        console.log('change');
         movie = this.movies.bestOne();
         this.$el.html(this.template(movie));
         this.delegateEvents();
@@ -94,7 +95,7 @@
       };
 
       MovieView.prototype.restart = function(e) {
-        return Backbone.Router.navgative('/');
+        return app.router.navigate('restart');
       };
 
       return MovieView;

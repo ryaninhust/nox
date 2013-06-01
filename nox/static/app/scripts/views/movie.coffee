@@ -37,6 +37,7 @@ define [
         @
 
       render: ()=>
+        console.log('change')
         movie = @movies.bestOne()
         @$el.html(@template(movie))
         @delegateEvents()
@@ -66,5 +67,5 @@ define [
         @
 
       restart: (e)->
-        Backbone.Router.navgative('/')
+        app.router.navigate('restart')
 

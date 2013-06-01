@@ -70,6 +70,7 @@
           };
         }
         return $.post('/questions/', answer).done(function(r) {
+          app.uid = r.uid;
           return _this.addQuestion(r);
         }).fail(function(r) {
           var _ref1;
@@ -92,6 +93,7 @@
         this.hideUp();
         e = $(e.target);
         answer = {
+          uid: app.uid,
           answer: e.val()
         };
         this.getQuestion(answer);

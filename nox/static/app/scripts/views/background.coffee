@@ -13,6 +13,7 @@ define [
         '/static/images/bg1.jpg'
         '/static/images/bg2.jpg'
         '/static/images/bg3.jpg'
+        '/static/images/bg4.jpg'
       ]
       render: ->
         image = new Image()

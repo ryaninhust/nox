@@ -18,7 +18,7 @@
         return this.el = this.$el[0];
       };
 
-      BackgroundView.prototype.imgList = ['/static/images/bg1.jpg', '/static/images/bg2.jpg', '/static/images/bg3.jpg'];
+      BackgroundView.prototype.imgList = ['/static/images/bg1.jpg', '/static/images/bg2.jpg', '/static/images/bg3.jpg', '/static/images/bg4.jpg'];
 
       BackgroundView.prototype.render = function() {
         var canvasElem, image;
