@@ -5,18 +5,15 @@ define [
   'backbone'
   'collections/questionSet'
   'models/question'
-  'mixins/movie-info'
-  ], (app, $, _, Backbone, QuestionSet, Question, movieInfo)->
+  ], (app, $, _, Backbone, QuestionSet, Question)->
 
     class QuestionView extends Backbone.View
-      className: 'dialog-wrapper'
+      className: 'question-wrapper'
       template: _.template($('#question-dialog-tmpl').html())
       collection: new QuestionSet()
       currentQuestion: new Question()
       events:
         'click button[type=submit]': 'answerQuestion'
-        'click .like': 'like'
-        'click .delete': 'delete'
       initialize: ->
         @collection.on('add', @gotNewQuestion, this)
         # first question fire
@@ -32,7 +29,7 @@ define [
         @render()
         @
 
-      getQuestion: (answer={})->
+      getQuestion: (answer={value: 2})->
         $.post('/questions/', answer)
           .done((r)=>
             @addQuestion(r)
@@ -57,8 +54,5 @@ define [
       addQuestion: (gotQuestion)->
         queston = new Question(gotQuestion)
         @collection.add(queston)
+        app.trigger 'getMovies', gotQuestion.movies_url
         @
-
-    _.extend QuestionView.prototype, movieInfo
-
-    QuestionView

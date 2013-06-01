@@ -4,15 +4,18 @@ define [
   'lodash'
   'backbone'
   'views/question'
+  'views/movie'
   'views/result'
   'mods/movies'
   ], (app, $, _, Backbone,
-    QuestionView, ResultView, Movies) ->
+    QuestionView, MovieView, ResultView, Movies) ->
+
     class MainPage extends Backbone.View
       className: 'main-page'
       templateHtml: $('#main-page-tmpl').html()
       initialize: ->
         app.on 'getResult', @renderResult
+        app.on 'getMovies', @renderMoive
         app.movies = new Movies
 
       render: =>
@@ -22,10 +25,18 @@ define [
         @
 
       renderQuestion: =>
-        questionView = new QuestionView()
+        app.questionView?= new QuestionView()
 
-        @content.empty()
-          .append(questionView.render().el)
+        @content.find('.bd').empty()
+          .append(app.questionView.render().el)
+
+      renderMoive: (moviesUrl)=>
+        app.movieView?= new MovieView()
+
+        app.movieView.setUrl moviesUrl
+
+        @content.find('.hd').empty()
+          .append(app.movieView.render().el)
 
       renderResult: (option={})=>
         resultView = new ResultView(option)

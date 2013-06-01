@@ -2,10 +2,10 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'jquery', 'lodash', 'backbone', 'collections/questionSet', 'models/question', 'mixins/movie-info'], function(app, $, _, Backbone, QuestionSet, Question, movieInfo) {
+  define(['app', 'jquery', 'lodash', 'backbone', 'collections/questionSet', 'models/question'], function(app, $, _, Backbone, QuestionSet, Question) {
     var QuestionView, _ref;
 
-    QuestionView = (function(_super) {
+    return QuestionView = (function(_super) {
       __extends(QuestionView, _super);
 
       function QuestionView() {
@@ -13,7 +13,7 @@
         return _ref;
       }
 
-      QuestionView.prototype.className = 'dialog-wrapper';
+      QuestionView.prototype.className = 'question-wrapper';
 
       QuestionView.prototype.template = _.template($('#question-dialog-tmpl').html());
 
@@ -22,9 +22,7 @@
       QuestionView.prototype.currentQuestion = new Question();
 
       QuestionView.prototype.events = {
-        'click button[type=submit]': 'answerQuestion',
-        'click .like': 'like',
-        'click .delete': 'delete'
+        'click button[type=submit]': 'answerQuestion'
       };
 
       QuestionView.prototype.initialize = function() {
@@ -50,7 +48,9 @@
         var _this = this;
 
         if (answer == null) {
-          answer = {};
+          answer = {
+            value: 2
+          };
         }
         return $.post('/questions/', answer).done(function(r) {
           return _this.addQuestion(r);
@@ -85,14 +85,13 @@
 
         queston = new Question(gotQuestion);
         this.collection.add(queston);
+        app.trigger('getMovies', gotQuestion.movies_url);
         return this;
       };
 
       return QuestionView;
 
     })(Backbone.View);
-    _.extend(QuestionView.prototype, movieInfo);
-    return QuestionView;
   });
 
 }).call(this);

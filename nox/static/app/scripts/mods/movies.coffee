@@ -19,6 +19,13 @@ define [
       initialize: ->
         #this.on('delete', @delete)
         #this.on('update', @update)
+
+      fetch: (url)=>
+        console.log(url)
+        $.get(url)
+          .done (r)=>
+            @update(r)
+            @trigger('changed')
         
       update: (newList)=>
         console.log(@filter(newList))

@@ -18,6 +18,7 @@
         this.filter = __bind(this.filter, this);
         this["delete"] = __bind(this["delete"], this);
         this.update = __bind(this.update, this);
+        this.fetch = __bind(this.fetch, this);
       }
 
       Movies.prototype.movieList = [];
@@ -25,6 +26,16 @@
       Movies.prototype.movieIdTrash = [];
 
       Movies.prototype.initialize = function() {};
+
+      Movies.prototype.fetch = function(url) {
+        var _this = this;
+
+        console.log(url);
+        return $.get(url).done(function(r) {
+          _this.update(r);
+          return _this.trigger('changed');
+        });
+      };
 
       Movies.prototype.update = function(newList) {
         console.log(this.filter(newList));

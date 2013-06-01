@@ -22,51 +22,54 @@
         <script id="main-page-tmpl" type="template">
           <header></header>
           <div class="content">
+            <div class="dialog-wrapper">
+              <div class="hd"></div>
+              <div class="bd"></div>
+            </div>
           </div>
           <footer></footer>
         </script>
 
-        <script id="question-dialog-tmpl" type="template">
-          <div class="hd">
-            <div class="cover">
-              <img src="{{= movie.cover_url}}" alt="{{= movie.name}}" />
-            </div>
-            <div class="info" data-id="{{= movie.id}}">
-              <div class="info-cover">
-                <img src="{{= movie.cover_url}}" alt="{{= movie.name}}" />
-              </div>
-              {{ if (movie.name.length){ }}
-              <div class="title">{{= movie.name}}</div>
-              <div class="info-action">
-                <button class="like icon"></button>
-                <button class="delete icon"></button>
-              </div>
-              <div class="info-detail">
-                <p class="director">导演 {{= movie.director}}</p>
-                <p class="director">演员 {{= movie.director}}</p>
-                <p class="summary">{{= movie.summary}}</p>
-              </div>
-              {{ } else { }}
-              <div class="info-addition">
-                {{= movie.summary}}
-              </div>
-              <div class="info-addition-action">
-                <button class="restart icon">&nbsp; 好吧重来</button>
-              </div>
-              {{ } }}
-            </div>
+        <script id="movie-panel-tmpl" type="template">
+          <div class="cover">
+            <img src="{{= cover_url}}" alt="{{= name}}" />
           </div>
-          <div class="bd">
-            <div class="question">
-              <blockquote>
-                {{= question }}
-              </blockquote>
+          <div class="info" data-id="{{= id}}">
+            <div class="info-cover">
+              <img src="{{= cover_url}}" alt="{{= name}}" />
             </div>
-            <div class="select">
-              <button class="unknow" type="submit" name="result" value="0">Emm..</button>
-              <button class="yes" type="submit" name="result" value="1">Yes!</button>
-              <button class="no" type="submit" name="result" value="-1">No!</button>
+            {{ if (name.length){ }}
+            <div class="title">{{= name}}</div>
+            <div class="info-action">
+              <button class="like icon"></button>
+              <button class="delete icon"></button>
             </div>
+            <div class="info-detail">
+              <p class="director">导演 {{= director}}</p>
+              <p class="director">演员 {{= director}}</p>
+              <p class="summary">{{= summary}}</p>
+            </div>
+            {{ } else { }}
+            <div class="info-addition">
+              {{= summary}}
+            </div>
+            <div class="info-addition-action">
+              <button class="restart icon">&nbsp; 好吧重来</button>
+            </div>
+            {{ } }}
+          </div>
+        </script>
+
+        <script id="question-dialog-tmpl" type="template">
+          <div class="question">
+            <blockquote>
+              {{= question }}
+            </blockquote>
+          </div>
+          <div class="select">
+            <button class="unknow" type="submit" name="result" value="0">Emm..</button>
+            <button class="yes" type="submit" name="result" value="1">Yes!</button>
+            <button class="no" type="submit" name="result" value="-1">No!</button>
           </div>
         </script>
 
