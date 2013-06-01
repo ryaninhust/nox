@@ -152,42 +152,50 @@ def get_top_points(feature_list, unique_id, Util=RedisUtil):
     all_feature_points.sort(key=lambda x: x[1][1])
     return all_feature_points[:100]
 
+
 def set_feature_points(unique_id, points):
     util = RedisUtil()
     for i in points:
         util.r.sadd(unique_id+'fs', i)
 
+
 def get_feature_points(unique_id):
     util = RedisUtil()
     return r.smembers(unique_id+'fs')
+
 
 def get_feature_point(unique_id):
     util = RedisUtil()
     util.r.get(unique_id+'f')
 
+
 def set_feature_point(unique_id, point):
     util = RedisUtil()
     util.r.set(unique_id, point)
+
 
 def append_filter_points(unique_id):
     point = get_feature_point(unique_id)
     util = RedisUtil()
     util.r.sadd(unique_id+'fp', point)
 
+
 def get_filter_points(unique_id):
     util = RedisUtil()
     return r.smembers(unique_id+'fp')
 
+
 def climax(unique_id, np):
     if np == -1:
         feature_points = get_top_points(feature_list, '1')
-        feature_points = ["%s:%s:%f" % (i[0],i[1][0], i[1][1]) for in feature_points]
+        feature_points = ["%s:%s:%f" % (i[0], i[1][0], i[1][1]) for in feature_points]
         set_feature_points(unique_id, feature_points)
     if np == 2:
         feature_points = get_feature_points(unique_id)
         append_filter_points(unique_id)
-        for i in list(feature_points - get_filter_points(unique_id)):
-            set_split_feature(unique_id, i)
+        filtered = list(feature_points - get_filter_points(unique_id))
+        set_feature_points(unique_id, filtered)
+
     else:
         feature_point = get_feature_point(unique_id)
         tem_tuple = feature_point.split(":")
@@ -195,7 +203,7 @@ def climax(unique_id, np):
                                0], tem_tuple[1], get_data(unique_id), np)
         set_data(unique_id, new_data)
         feature_points = get_top_points(feature_list, unique_id)
-        feature_points = ["%s:%s:%f" % (i[0],i[1][0], i[1][1]) for in feature_points]
+        feature_points = ["%s:%s:%f" % (i[0], i[1][0], i[1][1]) for in feature_points]
         set_feature_points(unique_id, feature_points)
 
 if __name__ == "__main__":
