@@ -5,7 +5,6 @@ class AnswerSerializer(serializers.Serializer):
     answer = serializers.CharField(max_length=5)
 
 
-
 class QuestionSerializer(serializers.Serializer):
     question = serializers.CharField(max_length=250)
     movies = serializers.HyperlinkedIdentityField(view_name='question_movies')
