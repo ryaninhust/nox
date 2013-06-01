@@ -33,7 +33,7 @@
       QuestionView.prototype.render = function() {
         var question;
 
-        question = this.currentQuestion.toJSON();
+        question = this.currentQuestion.toRenderJSON();
         this.$el.html(this.template(question));
         return this;
       };

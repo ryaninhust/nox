@@ -2,64 +2,149 @@
 @import "bootstrap.css"
 @import "compass/css3"
 
-html, body, .main-page
+$circle-size: 320px
+
+html, body, .container, .main-page
   height: 100%
   width: 100%
+  overflow: hidden
 
-html
-  background: url(/images/bg1.png)
-body
-  background: rgba(255,255,255, 0.3)
+.background-image
+  height: 220%
+  width: 220%
+  position: absolute
+  top: -50%
+  left: -50%
+  //-webkit-filter: blur(40px)
+  background: url(/images/bg2.jpg)
+
+@mixin flex()
+  display: flex
+  display: -webkit-flex
+  display: -mox-flex
+
+@mixin flex-center()
+  @include experimental(justify-content, center)
+  @include experimental(align-items, center)
+
+button 
+  background: transparent
+  margin: 0
+  border: none
 
 .main-page
   .content
     height: 100%
     width: 100%
-    display: flex
-    display: -webkit-flex
-    display: -mox-flex
-    @include experimental(justify-content, center)
-    @include experimental(align-items, center)
+    @include flex
+    @include flex-center
 
 .dialog-wrapper
   width: 50%
   height: 200px
+  margin-top: -340px
   position: relative
-  //border: 20px solid rgba(255,255,255, 0.5)
-  border-radius: 20px
-  box-shadow: 0 0 0 20px rgba(255,255,255,0.8)
   .hd, .bd
-    overflow: hidden
     height: 100%
   .hd
-    float: right
-    width: 150px
-    background: #268DCD
-    border-radius: 0 20px 20px 0
+    @include flex
+    @include flex-center
+    height: $circle-size
+    .info
+      display: none
+    &:hover 
+      .info
+        display: block
+    // big area
   .bd
-    border-radius: 20px 0 0 20px
+    margin-top: 40px
+    border-radius: 20px
     background: #ffffff
-
-    //# try to add arrow
+    //  try to add arrow
     position: relative
+    $arrow-height: 20px
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4)
     &:after
       content: ' '
       position: absolute
-      left: 100%
-      margin-left: 20px
+      top: 0
+      margin-top: - $arrow-height * 2
+      left: 50%
+      margin-left: - $arrow-height
       height: 0
       width: 0
-      border: 20px solid black
-
-  .question
-    margin-top: -40px
-    padding-left: 20px
-    padding-right: 20px
+      border-top: $arrow-height solid transparent
+      border-left: $arrow-height solid transparent
+      border-right: $arrow-height solid transparent
+      border-bottom: $arrow-height solid #ffffff
+  .cover
     overflow: hidden
-    height: 200px
+    height: $circle-size
+    width: $circle-size
+    background: #ffffff
+    border-radius: 50%
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4)
+    position: relative
+    &:before
+      border-radius: 50%
+      display: block
+      content: ' '
+      position: absolute
+      width: 100%
+      height: 100%
+      box-shadow: inset 0px 0px 0px 10px rgba(255,255,255,0.6)
+  $box-size: $circle-size + 10px
+  .info
+    background: #fff
+    border-radius: 20px
+    position: absolute
+    width: $box-size
+    height: $box-size
+    margin-left: - $box-size / 2 
+    margin-top: - $box-size / 2 + 60px
+    top: 50%
+    left: 50%
+    overflow: hidden
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4)
+  $cover-heigth: 200px
+  $info-action-height: 30px
+  .info-cover
+    height: $cover-heigth
+    overflow: hidden
+  .title
+    margin-top: - $cover-heigth / 2
+    color: #fff
+    text-align: center
+    text-shadow: 1px 1px 1px #000
+    font-size: 20px
+  
+  .info-action
+    margin-top: $cover-heigth / 2 - $info-action-height
+    height: $info-action-height
+    text-align: right
+    button
+      min-width: 100px
+      text-shadow: 1px 1px 1px #000
+      font-size: 25px
+      display: inline-block
+      color: #fff
+  .info-detail
+    font-size: 12px
+    padding: 0px 10px 10px
+    p 
+      margin: 0
+
+  $dialog-height: 200px
+  $action-height: 70px
+  .bd 
+    height: $dialog-height
+  .question
+    overflow: hidden
+    height: $dialog-height - $action-height
+
   blockquote
+    padding: 40px 40px 0
     font-size: 18px
-    margin-top: 100px
     border: none
     &:before, &:after
       content: ' '
@@ -70,13 +155,24 @@ body
       background: url('http://img3.douban.com/pics/quoter.gif') no-repeat 4px
 
   .select
-    display: flex
-    display: -webkit-flex
-    display: -mox-flex
-    height: 40px
+    @include flex
+    height: $action-height
+    @include experimental(justify-content, space-between)
+    @include experimental(flex-wrap, wrap)
+    padding: 0 40px
+    border-radius: 0 0 20px 20px
+    background: #060709
+    box-shadow: inset 0px 4px 10px 4px black
     button
-      @include experimental(justify-content, space-between)
-      @include experimental(flex-wrap, wrap)
-      border: none
-      margin: 0
+      margin-top: ($action-height - 30px)/ 2
+      height: 30px
+      border-radius: 5px
+      min-width: 80px
+      color: #ECF0F1
+      &.yes
+        background: #27AE60
+      &.no
+        background: #C0392B
+      &.unknow
+        background: #7F8C8D
 
