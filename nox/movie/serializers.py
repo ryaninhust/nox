@@ -23,3 +23,4 @@ class MovieSerializer(serializers.Serializer):
     rate = serializers.CharField(max_length=10)
     watcher = serializers.CharField(max_length=100)
     tags = serializers.CharField(max_length=250)
+    cover_url = serializers.CharField(max_length=250)

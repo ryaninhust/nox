@@ -21,7 +21,7 @@ def index_view(request):
 
 def photo_view(request, pid):
     photo_url = "http://img3.douban.com/lpic/s" + pid + ".jpg"
-    dest_addr = settings.COVER_PATH
+    dest_addr = os.path.join(settings.COVER_PATH, "..", "cover/", pid, ".jpg")
     stream = urllib2.urlopen(photo_url)
     new_file = open(dest_addr, "wb")
     new_file.write(stream.read())
@@ -49,11 +49,11 @@ class MovieViewSet(viewsets.ViewSetMixin,
         movie = Movie(id="3642843", name="a", directors="a", actors="a",
                       types="a", countries="a", languages='a',
                       year='a', length='a', rate='a',
-                      watcher='a', tags="a")
+                      watcher='a', tags="a", cover_url="/photos/3624843")
         bmovie = Movie(id="11529526", name="b", directors="b", actors="b",
                       types="b", countries="b", languages="b",
                       year='b', length='b', rate='b',
-                      watcher='b', tags="b")
+                      watcher='b', tags="b", cover_url="/photos/3624843")
         movies.append(movie)
         movies.append(bmovie)
         movie_json = MovieSerializer(movies)
