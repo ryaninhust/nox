@@ -70,7 +70,7 @@ def main():
     test = MongoUtil()
     movie = list(test.collection.find({}, {'_id':False}))
     r = redis.StrictRedis(host='localhost')
-    r.set(1, json.dumps(movie))
+    r.set('1', json.dumps(movie))
 
 # main
 if __name__ == "__main__":
