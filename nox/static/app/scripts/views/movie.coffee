@@ -18,6 +18,7 @@ define [
       initialize: ()->
         @movies = new Movies()
         @movies.on('changed', @render)
+        #@openMoviePanel = _.debounce @openMoviePanel
         @
 
       setUrl: (url)=>
