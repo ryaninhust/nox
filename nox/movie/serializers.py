@@ -11,6 +11,7 @@ class QuestionSerializer(serializers.Serializer):
 
 
 class MovieSerializer(serializers.Serializer):
+    id = serializers.CharField(max_length=15)
     name = serializers.CharField(max_length=250)
     directors = serializers.CharField(max_length=250)
     actors = serializers.CharField(max_length=250)

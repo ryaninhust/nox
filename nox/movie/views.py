@@ -23,6 +23,9 @@ def photo_view(request, pid):
     photo_url = "http://img3.douban.com/lpic/s" + pid + ".jpg"
     dest_addr = settings.COVER_PATH
     stream = urllib2.urlopen(photo_url)
+    new_file = open(dest_addr, "wb")
+    new_file.write(stream.read())
+    new_file.close()
     return HttpResponse(dest_addr)
 
 
@@ -43,11 +46,11 @@ class MovieViewSet(viewsets.ViewSetMixin,
                       year='b', length='b', rate='b',
                       watcher='b', tags=["b"])
         """
-        movie = Movie(name="a", directors="a", actors="a",
+        movie = Movie(id="3642843", name="a", directors="a", actors="a",
                       types="a", countries="a", languages='a',
                       year='a', length='a', rate='a',
                       watcher='a', tags="a")
-        bmovie = Movie(name="b", directors="b", actors="b",
+        bmovie = Movie(id="11529526", name="b", directors="b", actors="b",
                       types="b", countries="b", languages="b",
                       year='b', length='b', rate='b',
                       watcher='b', tags="b")
