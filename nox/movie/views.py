@@ -171,6 +171,8 @@ class QuestionViewSet(viewsets.ViewSetMixin,
     def answer_question(self, request, *args, **kwargs):
         try:
             token = request.GET["uid"]
+            if token == "":
+                token = create_token(8)
         except:
             token = create_token(8)
         answer = Answer(request.DATA).answer
