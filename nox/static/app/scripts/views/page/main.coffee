@@ -18,7 +18,6 @@ define [
         app.on 'getMovies', @renderMoive
         (new BackgroundView()).render()
 
-
       render: =>
         @$el.html(@templateHtml)
         @content = @$el.find('.content')

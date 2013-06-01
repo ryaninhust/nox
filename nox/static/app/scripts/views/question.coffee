@@ -39,7 +39,7 @@ define [
         @render()
         @
 
-      getQuestion: (answer={value: 2})->
+      getQuestion: (answer={answer: 2})->
         $.post('/questions/', answer)
           .done((r)=>
             @addQuestion(r)
@@ -57,7 +57,7 @@ define [
       answerQuestion: (e)->
         e = $(e.target)
         answer =
-          value: e.val()
+          answer: e.val()
         @getQuestion(answer)
         @
 
