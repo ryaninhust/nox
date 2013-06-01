@@ -31,6 +31,7 @@
         this.$el.html(this.templateHtml);
         this.content = this.$el.find('.content');
         this.renderQuestion();
+        this.renderMoive();
         return this;
       };
 
@@ -46,11 +47,11 @@
       MainPage.prototype.renderMoive = function(moviesUrl) {
         if (!app.movieView) {
           app.movieView = new MovieView();
-          this.content.find('.movie-panel').replaceWith(app.movieView.render().el);
+          this.content.find('.movie-panel').replaceWith(app.movieView.renderLoading().el);
         } else {
-          app.movieView.render();
+          app.movieView.renderLoading();
         }
-        return app.movieView.setUrl(moviesUrl);
+        return typeof moviesUrl === "function" ? moviesUrl(app.movieView.setUrl(moviesUrl)) : void 0;
       };
 
       MainPage.prototype.renderResult = function(option) {

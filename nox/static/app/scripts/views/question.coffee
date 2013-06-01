@@ -25,6 +25,8 @@ define [
       hideUp: =>
         @$el.addClass('hide-up')
       showDown: =>
+        if @currentQuestion.get('load')
+          return
         @$el.removeClass('hide-up')
         
       render: ()->
@@ -38,7 +40,7 @@ define [
         @showDown()
         @
 
-      getQuestion: (answer={answer: 2})->
+      getQuestion: (answer={answer: -1})->
         $.post('/questions/', answer)
           .done((r)=>
             @addQuestion(r)
@@ -49,7 +51,7 @@ define [
             @trick += '那'
             r =
               type: 'question'
-              question: @trick + '你吃过测试么？'
+              question: @trick + '你吃过Bug么？'
             @addQuestion(r)
           )
 

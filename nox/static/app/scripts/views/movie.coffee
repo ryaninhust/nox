@@ -5,6 +5,11 @@ define [
   'backbone'
   'mods/movies'
   ], (app, $, _, Backbone, Movies) ->
+    loadData =
+      id: ''
+      name: ''
+      cover_url: 'static/images/loading.png'
+      summary: '在处理数据...'
 
     class MovieView extends Backbone.View
       className: 'movie-panel'
@@ -26,6 +31,11 @@ define [
         @url = url
         @movies.fetch(url)
 
+      renderLoading: =>
+        @$el.html(@template(loadData))
+        @delegateEvents()
+        @
+
       render: ()=>
         movie = @movies.bestOne()
         @$el.html(@template(movie))
@@ -35,13 +45,11 @@ define [
       openMoviePanel: =>
         @$el.find('.back-panel').show()
         app.trigger('panel:show')
-        console.log('open')
         @
 
       closeMoviePanel: =>
         @$el.find('.back-panel').hide()
         app.trigger('panel:hide')
-        console.log('close')
         @
 
       like: (e)->
@@ -51,7 +59,6 @@ define [
         @
 
       delete: (e)->
-        console.log('movieinfo:delete')
         target = $(e.target)
         infoElem = target.closest('.info')
         id = infoElem.data('id')
@@ -59,4 +66,5 @@ define [
         @
 
       restart: (e)->
-        Backbone.router.navgative('/')
+        Backbone.Router.navgative('/')
+

@@ -40,6 +40,9 @@
       };
 
       QuestionView.prototype.showDown = function() {
+        if (this.currentQuestion.get('load')) {
+          return;
+        }
         return this.$el.removeClass('hide-up');
       };
 
@@ -63,7 +66,7 @@
 
         if (answer == null) {
           answer = {
-            answer: 2
+            answer: -1
           };
         }
         return $.post('/questions/', answer).done(function(r) {
@@ -77,7 +80,7 @@
           _this.trick += '那';
           r = {
             type: 'question',
-            question: _this.trick + '你吃过测试么？'
+            question: _this.trick + '你吃过Bug么？'
           };
           return _this.addQuestion(r);
         });

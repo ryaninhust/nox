@@ -22,6 +22,7 @@ define [
         @$el.html(@templateHtml)
         @content = @$el.find('.content')
         @renderQuestion()
+        @renderMoive()
         @
 
       renderQuestion: =>
@@ -36,11 +37,11 @@ define [
         if not app.movieView
           app.movieView = new MovieView()
           @content.find('.movie-panel')
-            .replaceWith(app.movieView.render().el)
+            .replaceWith(app.movieView.renderLoading().el)
         else
-          app.movieView.render()
+          app.movieView.renderLoading()
 
-        app.movieView.setUrl moviesUrl
+        moviesUrl? app.movieView.setUrl moviesUrl
 
       renderResult: (option={})=>
         resultView = new ResultView(option)
