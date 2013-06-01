@@ -82,24 +82,15 @@ class MovieViewSet(viewsets.ViewSetMixin,
     serializer_class = MovieSerializer
     def get_movies(self, request, *args, **kwargs):
         movies = []
-        """
-        movie = Movie(name="a", directors=["a"], actors=["a"],
-                      types=["a"], countries=["a"], languages='a',
-                      year='a', length='a', rate='a',
-                      watcher='a', tags=["a"])
-        bmovie = Movie(name="b", directors=["b"], actors=["b"],
-                      types=["b"], countries=["b"], languages=["b"],
-                      year='b', length='b', rate='b',
-                      watcher='b', tags=["b"])
-        """
+
         movie = Movie(id="3642843", name="a", directors="a", actors="a",
-                types="a", countries="a", languages='a',
-                year='a', length='a', rate='a',
-                watcher='a', tags="a", cover_url="/photos/3642843")
+                types="a", countries="a", language='中文',
+                year='a', length='110', rate='2.4',
+                people='200', tags="a",editors="editors",cover_url="/photos/3642843")
         bmovie = Movie(id="11529526", name="b", directors="b", actors="b",
-                types="b", countries="b", languages="b",
-                year='b', length='b', rate='b',
-                watcher='b', tags="b", cover_url="/photos/11529526")
+                types="b", countries="b", language="英语",
+                year='b', length='110', rate='3.5', editors="editorsb",
+                people='200', tags="b", cover_url="/photos/11529526")
         movies.append(movie)
         movies.append(bmovie)
         movie_json = MovieSerializer(movies)

@@ -6,19 +6,20 @@ from django.db import models
 class Movie(object):
 
     def __init__(self,id, name, directors, actors,
-                 types, countries, languages, year,
-                 length, rate, watcher, tags, cover_url):
+                 types, countries, editors, language, year,
+                 length, rate, people, tags, cover_url):
         self.id = id
         self.name = name
         self.directors = directors
         self.actors = actors
+        self.editors = editors
         self.types = types
         self.countries = countries
-        self.languages = languages
+        self.language = language
         self.year = year
         self.length = length
         self.rate = rate
-        self.watcher = watcher
+        self.people = people
         self.tags = tags
         self.cover_url = cover_url
 
