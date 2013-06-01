@@ -2,7 +2,7 @@ import math
 
 import dpark
 
-from .prelim import MongoUtil, RedisUtil
+from prelim import MongoUtil, RedisUtil
 import redis
 import json
 import datetime
