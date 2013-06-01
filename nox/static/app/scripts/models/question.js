@@ -18,29 +18,13 @@
         question: '额，这并不是个问题, 这是个bug。。。',
         headUrl: ' ',
         type: ' ',
-        movies: [
-          {
-            id: '2',
-            name: 'aaa',
-            cover_url: '/static/images/sample_cover.jpg',
-            director: 'kk',
-            summary: 'xxxxxx'
-          }, {
-            id: '1',
-            name: 'bb',
-            cover_url: 'http://img3.douban.com/view/photo/photo/public/p1812483670.jpg',
-            director: 'houkanshan',
-            summary: 'xxxxxx'
-          }
-        ]
+        movies_url: '/xxxxxxxx'
       };
 
       Question.prototype.toRenderJSON = function() {
         var question;
 
         question = this.toJSON();
-        app.movies.update(question.movies);
-        question.movie = app.movies.bestOne();
         return question;
       };
 

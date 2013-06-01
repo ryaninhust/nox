@@ -18,28 +18,24 @@
         this.filter = __bind(this.filter, this);
         this["delete"] = __bind(this["delete"], this);
         this.update = __bind(this.update, this);
-        this.fetch = __bind(this.fetch, this);
+        this.fetch = __bind(this.fetch, this);        console.log('new movie');
+        this.movieIdTrash = [];
+        this.movieList = [];
       }
-
-      Movies.prototype.movieList = [];
-
-      Movies.prototype.movieIdTrash = [];
-
-      Movies.prototype.initialize = function() {};
 
       Movies.prototype.fetch = function(url) {
         var _this = this;
 
         console.log(url);
         return $.get(url).done(function(r) {
-          _this.update(r);
-          return _this.trigger('changed');
+          return _this.update(r);
         });
       };
 
       Movies.prototype.update = function(newList) {
         console.log(this.filter(newList));
-        return this.movieList = this.filter(newList);
+        this.movieList = this.filter(newList);
+        return this.trigger('changed');
       };
 
       Movies.prototype["delete"] = function(movieId) {

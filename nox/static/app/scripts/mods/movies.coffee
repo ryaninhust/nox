@@ -13,23 +13,21 @@ define [
       summary: '没有什么电影能满足你了!!（╯‵□′）╯︵'
 
     class Movies
-      movieList: []
-      movieIdTrash: []
-
-      initialize: ->
-        #this.on('delete', @delete)
-        #this.on('update', @update)
+      constructor: ->
+        console.log('new movie')
+        @movieIdTrash = []
+        @movieList = []
 
       fetch: (url)=>
         console.log(url)
         $.get(url)
           .done (r)=>
             @update(r)
-            @trigger('changed')
-        
+              
       update: (newList)=>
         console.log(@filter(newList))
         @movieList = @filter(newList)
+        @trigger('changed')
 
       delete: (movieId)=>
         console.log('delete', movieId)

@@ -73,8 +73,7 @@
         target = $(e.target);
         infoElem = target.closest('.info');
         id = infoElem.data('id');
-        app.movies["delete"](id);
-        this.render();
+        this.movies["delete"](id);
         return this;
       };
 

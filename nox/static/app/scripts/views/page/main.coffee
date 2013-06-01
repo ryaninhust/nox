@@ -6,9 +6,8 @@ define [
   'views/question'
   'views/movie'
   'views/result'
-  'mods/movies'
   ], (app, $, _, Backbone,
-    QuestionView, MovieView, ResultView, Movies) ->
+    QuestionView, MovieView, ResultView) ->
 
     class MainPage extends Backbone.View
       className: 'main-page'
@@ -16,7 +15,6 @@ define [
       initialize: ->
         app.on 'getResult', @renderResult
         app.on 'getMovies', @renderMoive
-        app.movies = new Movies
 
       render: =>
         @$el.html(@templateHtml)
