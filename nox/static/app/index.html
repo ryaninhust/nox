@@ -29,11 +29,11 @@
         <script id="question-dialog-tmpl" type="template">
           <div class="hd">
             <div class="cover">
-              <img src="static/{{= movie.cover_url}}" alt="{{= movie.name}}" />
+              <img src="{{= movie.cover_url}}" alt="{{= movie.name}}" />
             </div>
             <div class="info" data-id="{{= movie.id}}">
               <div class="info-cover">
-                <img src="static/{{= movie.cover_url}}" alt="{{= movie.name}}" />
+                <img src="{{= movie.cover_url}}" alt="{{= movie.name}}" />
               </div>
               {{ if (movie.name.length){ }}
               <div class="title">{{= movie.name}}</div>
@@ -49,6 +49,9 @@
               {{ } else { }}
               <div class="info-addition">
                 {{= movie.summary}}
+              </div>
+              <div class="info-addition-action">
+                <button class="restart icon">&nbsp; 好吧重来</button>
               </div>
               {{ } }}
             </div>
