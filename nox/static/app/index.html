@@ -14,10 +14,14 @@
     </head>
     <body>
         <div class="background-image">
+          <canvas class="bg-canvas"></canvas>
         </div>
         <!-- Main container. -->
         <div id="main" class="container">
         </div>
+        <script id="background-image-tmpl" type="template">
+          <img src="{{= url}}" />
+        </script>
 
         <script id="main-page-tmpl" type="template">
           <header></header>

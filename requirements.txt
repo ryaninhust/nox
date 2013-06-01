@@ -3,3 +3,4 @@ https://github.com/ryaninhust/django-rest-framework/zipball/master
 pymongo
 https://github.com/douban/dpark/zipball/master
 redis
+werkzeug==0.8.3

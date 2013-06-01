@@ -3,11 +3,12 @@ define [
   'jquery'
   'lodash'
   'backbone'
+  'views/background'
   'views/question'
   'views/movie'
   'views/result'
   ], (app, $, _, Backbone,
-    QuestionView, MovieView, ResultView) ->
+    BackgroundView, QuestionView, MovieView, ResultView) ->
 
     class MainPage extends Backbone.View
       className: 'main-page'
@@ -15,6 +16,8 @@ define [
       initialize: ->
         app.on 'getResult', @renderResult
         app.on 'getMovies', @renderMoive
+        (new BackgroundView()).render()
+
 
       render: =>
         @$el.html(@templateHtml)
