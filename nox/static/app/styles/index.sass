@@ -5,6 +5,7 @@
 
 $circle-size: 320px
 $radius: 10px
+$white-bg: #ececec
 
 html, body, .container, .main-page
   height: 100%
@@ -61,7 +62,7 @@ button
   .bd
     margin-top: 40px
     border-radius: $radius
-    background: #ffffff
+    background: $white-bg
     //  try to add arrow
     position: relative
     $arrow-height: 20px
@@ -78,12 +79,12 @@ button
       border-top: $arrow-height solid transparent
       border-left: $arrow-height solid transparent
       border-right: $arrow-height solid transparent
-      border-bottom: $arrow-height solid #ffffff
+      border-bottom: $arrow-height solid $white-bg
   .cover
     overflow: hidden
     height: $circle-size
     width: $circle-size
-    background: #ffffff
+    background: $white-bg
     border-radius: 50%
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4)
     position: relative
@@ -97,7 +98,7 @@ button
       box-shadow: inset 0px 0px 0px 10px rgba(255,255,255,0.6)
   $box-size: $circle-size + 10px
   .info
-    background: #fff
+    background: $white-bg
     border-radius: $radius
     position: absolute
     width: $box-size
@@ -166,11 +167,12 @@ button
     border: none
     &:before, &:after
       content: ' '
-      padding-left: 20px
+      font-size: 30px
+      color: #6f6f6f
     &:before
-      background: url('http://img3.douban.com/pics/quotel.gif') no-repeat 4px
+      content: '“'
     &:after
-      background: url('http://img3.douban.com/pics/quoter.gif') no-repeat 4px
+      content: "”"
 
   .select
     @include flex
