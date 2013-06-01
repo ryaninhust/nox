@@ -8,7 +8,7 @@ html, body, .main-page {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\000039}}
 html {
-  background: url(/images/bg1.png);
+  background: url(/static/images/bg1.png);
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/houkanshan\/studio\/javascript\/guessfriend\/app\/styles\/index\.sass}line{font-family:\0000311}}

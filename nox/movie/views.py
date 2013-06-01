@@ -1,3 +1,6 @@
+import os
+from django.shortcuts import render
+
 from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework import mixins
@@ -5,6 +8,11 @@ from rest_framework.response import Response
 
 from movie.models import Movie, Question, Answer
 from movie.serializers import AnswerSerializer, QuestionSerializer, MovieSerializer
+
+
+
+def index_view(request):
+    return render(request, "index.html")
 
 
 class MovieViewSet(viewsets.ViewSetMixin,
@@ -34,3 +42,6 @@ class QuestionViewSet(viewsets.ViewSetMixin,
     def ask_question(self, request, *args, **kwargs):
         _view = MovieViewSet.as_view({'get': 'get_movies'})
         return _view(request, args, kwargs)
+
+
+
