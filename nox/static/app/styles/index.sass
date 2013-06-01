@@ -74,7 +74,6 @@ button
   .question-wrapper
     margin-top: 40px
     border-radius: $radius
-    background: $white-bg
     //  try to add arrow
     position: relative
     $arrow-height: 20px
@@ -197,6 +196,7 @@ button
     width: 50%
     min-width: 340px
   .question
+    background: $white-bg
     overflow: hidden
     height: $dialog-height - $action-height
     display: table
@@ -224,8 +224,9 @@ button
     @include experimental(flex-wrap, wrap)
     padding: 0 40px
     border-radius: 0 0 $radius $radius
-    background: #060709
-    box-shadow: inset 0px 4px 10px 4px black
+    //background: #060709
+    background: rbga(0, 0, 0, 0.5)
+    box-shadow: inset 0px 4px 10px 4px rgba(0, 0, 0, 0.5)
     button
       margin-top: ($action-height - 30px)/ 2
       height: 30px
