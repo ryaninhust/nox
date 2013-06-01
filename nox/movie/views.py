@@ -25,6 +25,7 @@ from phidias.prelim import flatten
 
 r = redis.StrictRedis(host='localhost')
 
+
 def ask_problem(feature, value):
     if feature == "language":
         return u"这部电影是" + value + u"电影吗？"
@@ -58,18 +59,19 @@ def ask_problem(feature, value):
         return u"我不知道该问什么了。。"
 
 
-
-
 def index_view(request):
     return render(request, "index.html")
 
+
 def photo_view(request, pid):
-    cover_folder = os.path.abspath(os.path.join(settings.COVER_PATH, os.pardir,os.pardir, "cover/"))
+    cover_folder = os.path.abspath(os.path.join(
+        settings.COVER_PATH, os.pardir, os.pardir, "cover/"))
     if not os.path.exists(cover_folder):
         os.mkdir(cover_folder)
 
     filename = pid + ".jpg"
-    dest_addr = os.path.abspath(os.path.join(settings.COVER_PATH, os.pardir,os.pardir, "cover/", filename))
+    dest_addr = os.path.abspath(os.path.join(
+        settings.COVER_PATH, os.pardir, os.pardir, "cover/", filename))
     if os.path.exists(dest_addr):
         file_content = open(dest_addr).read()
     else:
@@ -90,21 +92,23 @@ def photo_view(request, pid):
 
         try:
             img_name.index("pic")
-            photo_url = "http://img3.douban.com/lpic/" + img_name.split("/")[-1]
+            photo_url = "http://img3.douban.com/lpic/" + \
+                img_name.split("/")[-1]
         except:
             get_img = re.compile(r"\w(\d+)\.jpg")
             if get_img.findall(img_name):
                 img_id = get_img.findall(img_name)[0]
             else:
                 img_id = "1291545"
-            photo_url = "http://img3.douban.com/view/photo/photo/public/p"+ img_id + ".jpg"
+            photo_url = "http://img3.douban.com/view/photo/photo/public/p" + \
+                img_id + ".jpg"
 
         print photo_url
         try:
             stream = urllib2.urlopen(photo_url)
         except:
             try:
-                another_url =  "http://img3.douban.com/lpic/s" + pid + ".jpg"
+                another_url = "http://img3.douban.com/lpic/s" + pid + ".jpg"
                 stream = urllib2.urlopen(another_url)
             except:
                 pass
@@ -117,32 +121,40 @@ def photo_view(request, pid):
 
 
 class MovieViewSet(viewsets.ViewSetMixin,
-        generics.GenericAPIView,
-        mixins.SubModelMixin):
+                   generics.GenericAPIView,
+                   mixins.SubModelMixin):
     serializer_class = MovieSerializer
+
     def get_movies(self, request, *args, **kwargs):
         token = request.GET["uid"]
         new_movies = []
-        movies =  pick_movies(token)
+        movies = pick_movies(token)
         for movie in movies:
-            if movie.has_key("summary"):
+            if "summary" in movie:
                 summary = movie["summary"]
             else:
                 summary = ""
             movie = Movie(
                 id=movie["movie_id"],
                 name=movie["name"],
-                directors=",".join(flatten(movie["directors"])) if movie["directors"] else "",
-                actors=",".join(flatten(movie["actors"])) if movie["actors"] else "",
-                language=",".join(flatten(movie["language"])) if movie["actors"] else "",
-                types=",".join(flatten(movie["types"])) if movie["types"] else "",
-                countries=",".join(flatten(movie["countries"])) if movie["countries"] else "",
-                year=movie["year"] if movie["year"] else "" ,
+                directors=",".join(flatten(movie[
+                                   "directors"])) if movie["directors"] else "",
+                actors=",".join(flatten(movie[
+                                "actors"])) if movie["actors"] else "",
+                language=",".join(flatten(movie[
+                                  "language"])) if movie["actors"] else "",
+                types=",".join(flatten(movie[
+                               "types"])) if movie["types"] else "",
+                countries=",".join(flatten(movie[
+                                   "countries"])) if movie["countries"] else "",
+                year=movie["year"] if movie["year"] else "",
                 length=movie["length"] if movie["length"] else "",
-                rate=movie["rate"] ,
-                editors=",".join(flatten(movie["editors"])) if movie["editors"] else "",
+                rate=movie["rate"],
+                editors=",".join(flatten(movie[
+                                 "editors"])) if movie["editors"] else "",
                 people=movie["people"],
-                tags=",".join(flatten(movie["tags"])) if movie["people"] else "",
+                tags=",".join(flatten(movie[
+                              "tags"])) if movie["people"] else "",
                 cover_url="/photos/" + movie["movie_id"],
                 summary=summary,
             )
@@ -153,8 +165,9 @@ class MovieViewSet(viewsets.ViewSetMixin,
 
 
 class QuestionViewSet(viewsets.ViewSetMixin,
-        generics.GenericAPIView):
+                      generics.GenericAPIView):
     serializer_class = AnswerSerializer
+
     def answer_question(self, request, *args, **kwargs):
         try:
             token = request.GET["uid"]
@@ -165,7 +178,7 @@ class QuestionViewSet(viewsets.ViewSetMixin,
         answer = Answer(request.DATA).answer
         question_content = u"一个问题"
         if answer:
-            answer =  int(answer["answer"])
+            answer = int(answer["answer"])
             climax(token, int(answer))
             results = pick_point(token)
             feature = results[0]
@@ -181,6 +194,6 @@ class QuestionViewSet(viewsets.ViewSetMixin,
         _view = MovieViewSet.as_view({'get': 'get_movies'})
         return _view(request, args, kwargs)
 
+
 def create_token(length):
     return security.gen_salt(length)
-
