@@ -6,9 +6,10 @@ from prelim import MongoUtil, RedisUtil
 import redis
 import json
 import datetime
+import random
 
 feature_list = ['language', 'countries', 'tags', 'rate', 'people',
-                'editors', 'directors', 'actors', 'date', 'length', 'types']
+                'editors', 'directors', 'actors', 'length', 'types']
 mountain_data_key = '1'
 
 dpark = dpark.context.DparkContext(master='local')
@@ -66,9 +67,12 @@ def get_phidias_point(feature_set, citerion=CrossEncropyCiterion):
 
 
 def make_filter(feature, feature_point, data, np):
+    feature_point = unicode(feature_point.decode('utf8'))
     rdd = dpark.parallelize(data)
 
     def _has_feature(item):
+        if item[feature] == None:
+            return False
         return feature_point in item[feature]
 
     def _is_feature(item):
@@ -82,7 +86,9 @@ def make_filter(feature, feature_point, data, np):
             return False
 
     def _has_not_feature(item):
-        return feature_point not in item[feature]
+        if item[feature] == None:
+            return True
+        feature_point not in item[feature]
 
     def _is_not_feature(item):
         return item[feature] != feature_point
@@ -168,7 +174,7 @@ def get_feature_points(unique_id):
 
 def get_feature_point(unique_id):
     util = RedisUtil()
-    util.r.get(unique_id + 'f')
+    return util.r.get(unique_id + 'f')
 
 
 def set_feature_point(unique_id, point):
@@ -178,8 +184,9 @@ def set_feature_point(unique_id, point):
 
 def append_filter_points(unique_id):
     point = get_feature_point(unique_id)
+    a = tuple(point.split(':'))
     util = RedisUtil()
-    util.r.sadd(unique_id + 'fp', point)
+    util.r.sadd(unique_id + 'fp', "%s:%s", a[0], a[1])
 
 
 def get_filter_points(unique_id):
@@ -189,11 +196,14 @@ def get_filter_points(unique_id):
 
 def climax(unique_id, np):
     if np == -1:
-        until = RedisUtil()
-        until.r.delete(unique_id+'fp')
-        feature_points = get_top_points(feature_list, '1')
-        feature_points = ["%s:%s:%f" % (i[0], i[
-                                        1][0], i[1][1]) for i in feature_points]
+        util = MongoUtil()
+        data = list(util.collection.find({},{'_id':False}))
+        util = RedisUtil()
+        util.set_data(unique_id, data)
+        util.r.delete(unique_id+'fp')
+        feature_points = get_top_points(feature_list, unique_id)
+        feature_points = ["%s:%s" % (i[0], i[
+                                        1][0]) for i in feature_points]
         set_feature_points(unique_id, feature_points)
         return None
     if np == 2:
@@ -204,28 +214,32 @@ def climax(unique_id, np):
         return None
     else:
         feature_point = get_feature_point(unique_id)
+        append_filter_points(unique_id)
         tem_tuple = feature_point.split(":")
+        print tem_tuple[0], tem_tuple[1]
         new_data = make_filter(tem_tuple[
                                0], tem_tuple[1], get_data(unique_id), np)
         set_data(unique_id, new_data)
         feature_points = get_top_points(feature_list, unique_id)
-        feature_points = ["%s:%s:%f" % (i[0], i[
-                                        1][0], i[1][1]) for i in feature_points]
-        set_feature_points(unique_id, feature_points)
+        feature_points = ["%s:%s" % (i[0], i[
+                                        1][0]) for i in feature_points]
+        filtered = list(set(feature_points) - get_filter_points(unique_id))
+        set_feature_points(unique_id, filtered)
         return None
 
 
 def pick_point(unique_id):
     util = RedisUtil()
     points = list(util.r.smembers(unique_id + 'fs'))
+    print points
     points = [i.split(":") for i in points]
-    points.sort(key=lambda x: x[2], reverse=True)
-    for i in points:
+    while(1):
+        i = points[random.randint(0,100)]
         if i[1] == 'None':
-            util.r.sadd(unique_id + 'fp', "%s:%s:%s" % tuple(i))
+            util.r.sadd(unique_id + 'fp', "%s:%s" % tuple(i))
             continue
         else:
-            set_feature_point(unique_id, "%s:%s:%s" % tuple(i))
+            set_feature_point(unique_id, "%s:%s" % tuple(i))
             return i
 
 
@@ -236,7 +250,9 @@ def pick_movies(unique_id):
 
 if __name__ == "__main__":
     s = datetime.datetime.now()
-    print climax('2',1)
+    climax('2',-1)
+    print pick_point('2')
+    climax('2', 1)
     # print pick_movies('1')
     print pick_point('2')
     e = datetime.datetime.now()
