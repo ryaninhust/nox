@@ -112,6 +112,8 @@ button
       width: 100%
       height: 100%
       box-shadow: inset 0px 0px 0px 10px rgba(255,255,255,0.6)
+    &.roll
+      @include experimental(animation, roll 10s ease-in-out infinite alternate)
   $box-size: $circle-size + 10px
   .info
     background: $white-bg
@@ -241,4 +243,22 @@ button
         background: #C0392B
       &.unknow
         background: #7F8C8D
+
+@keyframes roll
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
+
+@-webkit-keyframes roll
+  0%
+    -webkit-transform: rotate(0deg)
+  100% 
+    -webkit-transform: rotate(360deg)
+ 
+@-moz-keyframes roll
+  0%
+    -moz-transform: rotate(0deg)
+  100% 
+    -moz-transform: rotate(360deg)
 

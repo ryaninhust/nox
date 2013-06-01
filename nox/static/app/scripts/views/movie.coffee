@@ -33,6 +33,7 @@ define [
 
       renderLoading: =>
         @$el.html(@template(loadData))
+        @$el.find('.cover').addClass('roll')
         @delegateEvents()
         @
 

@@ -35,6 +35,7 @@ define [
         @
 
       gotNewQuestion: (model, collection)->
+        console.log('loisgt')
         @currentQuestion = model
         @render()
         @showDown()

@@ -49,6 +49,7 @@
 
       MovieView.prototype.renderLoading = function() {
         this.$el.html(this.template(loadData));
+        this.$el.find('.cover').addClass('roll');
         this.delegateEvents();
         return this;
       };

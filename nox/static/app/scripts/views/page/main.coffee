@@ -41,7 +41,8 @@ define [
         else
           app.movieView.renderLoading()
 
-        moviesUrl? app.movieView.setUrl moviesUrl
+        if moviesUrl
+          app.movieView.setUrl moviesUrl
 
       renderResult: (option={})=>
         resultView = new ResultView(option)

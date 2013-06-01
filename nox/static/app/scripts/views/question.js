@@ -55,6 +55,7 @@
       };
 
       QuestionView.prototype.gotNewQuestion = function(model, collection) {
+        console.log('loisgt');
         this.currentQuestion = model;
         this.render();
         this.showDown();

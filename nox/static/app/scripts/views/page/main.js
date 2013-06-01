@@ -51,7 +51,9 @@
         } else {
           app.movieView.renderLoading();
         }
-        return typeof moviesUrl === "function" ? moviesUrl(app.movieView.setUrl(moviesUrl)) : void 0;
+        if (moviesUrl) {
+          return app.movieView.setUrl(moviesUrl);
+        }
       };
 
       MainPage.prototype.renderResult = function(option) {
