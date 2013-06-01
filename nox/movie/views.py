@@ -24,7 +24,7 @@ class MovieViewSet(viewsets.ViewSetMixin,
 class QuestionViewSet(viewsets.ViewSetMixin,
                       generics.GenericAPIView):
 
-    serializer_class = QuestionSerializer
+    serializer_class = AnswerSerializer
     def answer_question(self, request, *args, **kwargs):
         answer = Answer(request.DATA)
         question = Question(pk=1, question="asda")
