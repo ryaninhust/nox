@@ -16,6 +16,8 @@ dpark = dpark.context.DparkContext(master='local')
 
 
 util = RedisUtil()
+
+
 class SplitCiterion(object):
     pass
 
@@ -70,6 +72,8 @@ def get_phidias_point(feature_set, citerion=CrossEncropyCiterion):
 
 
 def make_filter(feature, feature_point, data, np):
+    print np
+    print "===================================="
     feature_point = unicode(feature_point.decode('utf8'))
     rdd = dpark.parallelize(data, numSlices=1)
 
@@ -153,7 +157,7 @@ def get_top_points(feature_list, unique_id, Util=RedisUtil):
         feature_top = [(feature, i) for i in get_phidias_point(feature_set)]
         all_feature_points += feature_top
     all_feature_points.sort(key=lambda x: x[1][1], reverse=True)
-    return all_feature_points[:100]
+    return all_feature_points[:40]
 
 
 def set_feature_points(unique_id, points):
@@ -194,7 +198,6 @@ def climax(unique_id, np):
         util.set_data(unique_id, data)
         util.r.delete(unique_id+'fp')
         feature_points = get_top_points(feature_list, unique_id)
-        print len(feature_points)
         feature_points = ["%s:%s" % (i[0], i[
             1][0]) for i in feature_points]
         set_feature_points(unique_id, feature_points)
@@ -209,11 +212,13 @@ def climax(unique_id, np):
         set_feature_points(unique_id, filtered)
         return None
     else:
+        print np
         feature_point = get_feature_point(unique_id)
         append_filter_points(unique_id)
         tem_tuple = feature_point.split(":")
         new_data = make_filter(tem_tuple[
                                0], tem_tuple[1], get_data(unique_id), np)
+        print len(new_data)
         set_data(unique_id, new_data)
         feature_points = get_top_points(feature_list, unique_id)
         feature_points = ["%s:%s" % (i[0], i[
@@ -230,9 +235,8 @@ def pick_point(unique_id):
     points = list(util.r.smembers(unique_id + 'fs'))
     points = [i.split(":") for i in points]
     upper = len(points)
-    print upper
     while(1):
-        i = points[random.randrange(0,upper)]
+        i = points[random.randrange(0, upper)]
         if i[1] == 'None':
             util.r.sadd(unique_id + 'fp', "%s:%s" % tuple(i))
             continue
@@ -249,7 +253,7 @@ if __name__ == "__main__":
     s = datetime.datetime.now()
     climax('2', -1)
     pick_point('2')
-    climax('2', 1)
+    climax('2', 0)
     # print pick_movies('1')
     pick_point('2')
     climax('2', 0)
