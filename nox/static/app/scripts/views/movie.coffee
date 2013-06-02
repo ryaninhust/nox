@@ -36,9 +36,15 @@ define [
       rolling: =>
         @$el.find('.cover').addClass('roll')
 
+      hackOverflow: =>
+        _.defer =>
+          @$el.css('overflow', 'hidden')
+          @$el.css('border-radius', @$el.css('border-radius'))
+
       renderLoading: =>
         @$el.html(@template(loadData))
         @rolling()
+        @hackOverflow()
         @delegateEvents()
         @
 
@@ -46,6 +52,7 @@ define [
         console.log('change')
         movie = @movies.bestOne()
         @$el.html(@template(movie))
+        @hackOverflow()
         @delegateEvents()
         @
 
