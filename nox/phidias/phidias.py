@@ -153,7 +153,8 @@ def get_top_points(feature_list, unique_id, Util=RedisUtil):
         feature_top = [(feature, i) for i in get_phidias_point(feature_set)]
         all_feature_points += feature_top
     all_feature_points.sort(key=lambda x: x[1][1], reverse=True)
-    return all_feature_points[:100]
+    #return all_feature_points[:100]
+    return all_feature_points[:20]
 
 
 def set_feature_points(unique_id, points):

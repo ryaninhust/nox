@@ -51,7 +51,8 @@ class RedisUtil():
 
 
 def main():
-    test = MongoClient('192.168.1.229', 27017).test.movies
+    #test = MongoClient('192.168.1.229', 27017).test.movies
+    test = MongoClient('192.168.1.229', 27017).test.tops
     # movie = list(test.collection.find({}, {'_id':False}))
     r = redis.StrictRedis(host='localhost')
     movie = list(test.find({}, {'_id': False}))

@@ -32,11 +32,9 @@ def ask_problem(feature, value):
     elif feature == "countries":
         return u"你要猜的这部电影是来自" + value + u"的吗？"
     elif feature == "tags":
-        return u"你要猜的这部电影和" + value + u"有关的吗？"
+        return u"你要猜的这部电影是" + value + u"片吗？"
     elif feature == "rate" and float(value) > 8:
         return u"你要猜的这部电影是否广受赞誉？"
-    elif feature == "rate" and float(value) > 9:
-        return u"你要猜的这部电影是否非常经典？"
     elif feature == "people" and int(value) < 100:
         return u"你要猜的这部电影是否非常冷门"
     elif feature == "people" and int(value) > 30000:
@@ -56,7 +54,7 @@ def ask_problem(feature, value):
     elif feature == "types":
         return u"你要猜的是个" + value + u"片？"
     else:
-        return u"我不知道该问什么了。。"
+        return u"我知道的太少，不知道你要找的电影～, 看看里面有什么你喜欢的～"
 
 
 def index_view(request):
@@ -181,6 +179,12 @@ class QuestionViewSet(viewsets.ViewSetMixin,
             feature = results[0]
             content = results[1].decode("utf-8")
             question_content = ask_problem(feature, content)
+            if u"知道的太少" in question_content:
+                climax(token, -1)
+                results = pick_point(token)
+                feature = results[0]
+                content = results[1].decode("utf-8")
+                question_content = ask_problem(feature, content)
         else:
             return Response({"error": "fail"})
         question = Question(pk=1, question=question_content, uid=token)
