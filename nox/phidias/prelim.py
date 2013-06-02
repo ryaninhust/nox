@@ -16,22 +16,6 @@ def flatten(iterable):
             yield elm
 
 
-class MongoUtil():
-    tag_name_list = ['language', 'countries', 'tags', 'rate', 'people',
-                     'editors', 'directors', 'actors', 'year', 'date', 'length', 'types']
-
-    client = MongoClient('192.168.1.229', 27017)
-    db = client.test
-    collection = db.movies
-
-    def get_types(self, tag_name):
-        tags = collection.find({}, {tag_name: 1})
-        tag_list = []
-        for tag in tags:
-            tag_list.append(tag.get(tag_name))
-        return list(flatten(tag_list))
-
-
 class RedisUtil():
     r = redis.StrictRedis(host='localhost')
     tag_name_list = ['language', 'countries', 'tags', 'rate', 'people',
@@ -67,10 +51,10 @@ class RedisUtil():
 
 
 def main():
-    test = MongoUtil()
-    #movie = list(test.collection.find({}, {'_id':False}))
+    test = MongoClient('192.168.1.229', 27017).test.movies
+    # movie = list(test.collection.find({}, {'_id':False}))
     r = redis.StrictRedis(host='localhost')
-    movie = list(test.db.tops.find({}, {'_id':False}))
+    movie = list(test.find({}, {'_id': False}))
     r.set('1', json.dumps(movie))
 
 # main
