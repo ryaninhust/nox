@@ -44,6 +44,7 @@
 
       MovieView.prototype.setUrl = function(url) {
         this.url = url;
+        this.$el.find('.cover').addClass('roll');
         return this.movies.fetch(url);
       };
 
@@ -65,13 +66,13 @@
       };
 
       MovieView.prototype.openMoviePanel = function() {
-        this.$el.find('.back-panel').show();
+        this.$el.find('.back-panel').show().addClass('slide-in');
         app.trigger('panel:show');
         return this;
       };
 
       MovieView.prototype.closeMoviePanel = function() {
-        this.$el.find('.back-panel').hide();
+        this.$el.find('.back-panel').hide().removeClass('slide-in');
         app.trigger('panel:hide');
         return this;
       };

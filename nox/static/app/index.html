@@ -49,7 +49,9 @@
               <button class="delete icon"></button>
             </div>
             <div class="info-detail">
-              <p class="summary">{{= ''}}</p>
+              <p>评星: {{= rate}}</p>
+              <p>标签: {{= tags}}</p>
+              <p>评价人数: {{= people}}</p>
             </div>
             {{ } else { }}
             <div class="info-addition">
@@ -84,16 +86,12 @@
             </section>
             <section class="right-top">
               <div class="box">
-                <em> 评星 </em>
-                <p>{{= rate}}</p>
-                <em> 标签 </em>
-                <p>{{= tags}}</p>
-                <em>评价人数</em>
-                <p>{{= people}}</p>
-              </div>
-              <div class="box">
                 <em> 上映日期 </em>
                 <p>{{= year}}</p>
+              </div>
+              <div class="box">
+                <em> 概述 </em>
+                <p class="summary">{{= summary}}</p>
               </div>
             </section>
           </div>
@@ -107,9 +105,9 @@
             </blockquote>
           </div>
           <div class="select">
-            <button class="unknow" type="submit" name="result" value="0">Emm..</button>
-            <button class="yes" type="submit" name="result" value="1">Yes!</button>
-            <button class="no" type="submit" name="result" value="-1">No!</button>
+            <button class="unknow" type="submit" name="result" value="0">不知道</button>
+            <button class="yes" type="submit" name="result" value="1">是的</button>
+            <button class="no" type="submit" name="result" value="-1">不是的</button>
           </div>
         </script>
 

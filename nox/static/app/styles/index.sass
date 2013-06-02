@@ -128,25 +128,29 @@ button
     overflow: hidden
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4)
   $cover-heigth: 200px
-  $info-action-height: 30px
+  $info-action-height: 32px
   .info-cover
     height: $cover-heigth
     overflow: hidden
   .title
-    margin-top: - $cover-heigth / 2
+    top: $cover-heigth / 2
+    position: absolute
+    width: 100%
     color: #fff
     text-align: center
     text-shadow: 1px 1px 1px #000
     font-size: 20px
   
   .info-action
-    margin-top: $cover-heigth / 2 - $info-action-height
+    margin-top: -$info-action-height + 20px
     height: $info-action-height
     text-align: right
     button
       //min-width: 100px
-      text-shadow: 1px 1px 1px #000
+      text-shadow: 0px 0px 4px #000
       font-size: 25px
+      line-height: 30px
+      height: 30px
       display: inline-block
       color: #fff
   .info-addition-action
@@ -155,16 +159,23 @@ button
   .info-detail
     font-size: 12px
     padding: 0px 10px 10px
+    text-align: left
     p 
       margin: 0
   .info-addition
     margin-top: 20px
     text-align: center
 
-  .like:before
-    content: '\e007'
-  .delete:before
-    content: '\e00b'
+  .like
+    &:hover
+      color: #c0392b
+    &:before
+      content: '\e007'
+  .delete
+    &:hover
+      color: #eee
+    &:before
+      content: '\e00b'
   .restart:before
     content: '\e02b'
 
@@ -187,10 +198,15 @@ button
       background: rgba(0,0,0, .5)
       margin-bottom: 20px
       min-height: 100px
+      white-space: normal
+      word-wrap: break-word
     .left-top
       margin-left: - $box-size * 3 / 2 - 20px
     .right-top
       margin-left: $box-size / 2 + 20px
+    //@include experimental(transition, all 0.3s)
+    //&.slide-in
+      //@include experimental(transform, scale(0.1))
       
 
   $dialog-height: 200px
