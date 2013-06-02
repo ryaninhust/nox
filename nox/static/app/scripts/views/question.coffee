@@ -25,7 +25,7 @@ define [
       hideUp: =>
         @$el.addClass('hide-up')
       showDown: =>
-        if not @currentQuestion.get('uid')
+        if not @currentQuestion.get('uid') or $('.roll').length
           return
         @$el.removeClass('hide-up')
         

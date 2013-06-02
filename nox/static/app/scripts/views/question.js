@@ -40,7 +40,7 @@
       };
 
       QuestionView.prototype.showDown = function() {
-        if (!this.currentQuestion.get('uid')) {
+        if (!this.currentQuestion.get('uid') || $('.roll').length) {
           return;
         }
         return this.$el.removeClass('hide-up');

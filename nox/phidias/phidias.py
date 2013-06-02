@@ -153,7 +153,7 @@ def get_top_points(feature_list, unique_id, Util=RedisUtil):
         feature_top = [(feature, i) for i in get_phidias_point(feature_set)]
         all_feature_points += feature_top
     all_feature_points.sort(key=lambda x: x[1][1], reverse=True)
-    return all_feature_points[:30]
+    return all_feature_points[:100]
 
 
 def set_feature_points(unique_id, points):
@@ -181,8 +181,6 @@ def set_feature_point(unique_id, point):
 def append_filter_points(unique_id):
     point = get_feature_point(unique_id)
     a = tuple(point.split(':'))
-    util = RedisUtil()
-    print "yuanbo wen !!!!!"
     util.r.sadd(unique_id + 'fp', "%s:%s" % (a[0], a[1]))
 
 
@@ -196,6 +194,7 @@ def climax(unique_id, np):
         util.set_data(unique_id, data)
         util.r.delete(unique_id+'fp')
         feature_points = get_top_points(feature_list, unique_id)
+        print len(feature_points)
         feature_points = ["%s:%s" % (i[0], i[
             1][0]) for i in feature_points]
         set_feature_points(unique_id, feature_points)
@@ -206,10 +205,7 @@ def climax(unique_id, np):
         test = get_filter_points(unique_id)
         test = [i.split(':') for i in test]
         test = ["%s:%s" % (i[0], i[1]) for i in test]
-        print test
         filtered = list(set(feature_points) - set(test))
-        print feature_points
-        print filtered
         set_feature_points(unique_id, filtered)
         return None
     else:
@@ -233,12 +229,12 @@ def climax(unique_id, np):
 def pick_point(unique_id):
     points = list(util.r.smembers(unique_id + 'fs'))
     points = [i.split(":") for i in points]
-    index = 0
+    upper = len(points)
+    print upper
     while(1):
-        i = points[index]
+        i = points[random.randrange(0,upper)]
         if i[1] == 'None':
             util.r.sadd(unique_id + 'fp', "%s:%s" % tuple(i))
-            index += 1
             continue
         else:
             set_feature_point(unique_id, "%s:%s" % tuple(i))
@@ -253,8 +249,10 @@ if __name__ == "__main__":
     s = datetime.datetime.now()
     climax('2', -1)
     pick_point('2')
-    climax('2', 2)
+    climax('2', 1)
     # print pick_movies('1')
+    pick_point('2')
+    climax('2', 0)
     pick_point('2')
     e = datetime.datetime.now()
     print e-s

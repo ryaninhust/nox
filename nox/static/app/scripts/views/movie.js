@@ -20,6 +20,7 @@
         this.openMoviePanel = __bind(this.openMoviePanel, this);
         this.render = __bind(this.render, this);
         this.renderLoading = __bind(this.renderLoading, this);
+        this.hackOverflow = __bind(this.hackOverflow, this);
         this.rolling = __bind(this.rolling, this);
         this.setUrl = __bind(this.setUrl, this);        _ref = MovieView.__super__.constructor.apply(this, arguments);
         return _ref;
@@ -54,9 +55,20 @@
         return this.$el.find('.cover').addClass('roll');
       };
 
+      MovieView.prototype.hackOverflow = function() {
+        var _this = this;
+
+        return _.defer(function() {
+          _this.el.offsetHeight;
+          _this.$el.css('overflow', 'hidden');
+          return _this.$el.css('border-radius', _this.$el.css('border-radius'));
+        });
+      };
+
       MovieView.prototype.renderLoading = function() {
         this.$el.html(this.template(loadData));
         this.rolling();
+        this.hackOverflow();
         this.delegateEvents();
         return this;
       };
@@ -67,6 +79,7 @@
         console.log('change');
         movie = this.movies.bestOne();
         this.$el.html(this.template(movie));
+        this.hackOverflow();
         this.delegateEvents();
         return this;
       };
