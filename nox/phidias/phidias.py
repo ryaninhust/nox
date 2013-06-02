@@ -15,6 +15,7 @@ mountain_data_key = '1'
 dpark = dpark.context.DparkContext(master='local')
 
 
+util = RedisUtil()
 class SplitCiterion(object):
     pass
 
@@ -122,37 +123,30 @@ def make_filter(feature, feature_point, data, np):
 
 
 def get_split_feature(unique_id, Util=RedisUtil):
-    util = Util()
     return util.get_split_feature(unique_id)
 
 
 def get_data(unique_id, Util=RedisUtil):
-    util = Util()
     return util.get_data(unique_id)
 
 
 def get_filter_point(unique_id, Util=RedisUtil):
-    util = Util()
     return util.get_filter_points(unique_id)
 
 
 def append_filter_point(unique_id, points, Util=RedisUtil):
-    util = Util()
     util.append_filter_points(unique_id, points)
 
 
 def set_data(unique_id, data, Util=RedisUtil):
-    util = Util()
     util.set_data(unique_id, data)
 
 
 def set_split_feature(unique_id, feature_point, Util=RedisUtil):
-    util = Util()
     util.set_split_feature(unique_id, feature_point)
 
 
 def get_top_points(feature_list, unique_id, Util=RedisUtil):
-    util = Util()
     all_feature_points = []
     for feature in feature_list:
         feature_set = util.get_types(unique_id, feature)
@@ -163,29 +157,24 @@ def get_top_points(feature_list, unique_id, Util=RedisUtil):
 
 
 def set_feature_points(unique_id, points):
-    util = RedisUtil()
     util.r.delete(unique_id + 'fs')
     for i in points:
         util.r.sadd(unique_id + 'fs', i)
 
 
 def get_data(unique_id, Util=RedisUtil):
-    util = Util()
     return util.get_data(unique_id)
 
 
 def get_feature_points(unique_id):
-    util = RedisUtil()
     return util.r.smembers(unique_id + 'fs')
 
 
 def get_feature_point(unique_id):
-    util = RedisUtil()
     return util.r.get(unique_id + 'f')
 
 
 def set_feature_point(unique_id, point):
-    util = RedisUtil()
     util.r.set(unique_id + 'f', point)
 
 
@@ -193,17 +182,16 @@ def append_filter_points(unique_id):
     point = get_feature_point(unique_id)
     a = tuple(point.split(':'))
     util = RedisUtil()
+    print "yuanbo wen !!!!!"
     util.r.sadd(unique_id + 'fp', "%s:%s" % (a[0], a[1]))
 
 
 def get_filter_points(unique_id):
-    util = RedisUtil()
     return util.r.smembers(unique_id + 'fp')
 
 
 def climax(unique_id, np):
     if np == -1:
-        util = RedisUtil()
         data = util.get_data('1')
         util.set_data(unique_id, data)
         util.r.delete(unique_id+'fp')
@@ -243,7 +231,6 @@ def climax(unique_id, np):
 
 
 def pick_point(unique_id):
-    util = RedisUtil()
     points = list(util.r.smembers(unique_id + 'fs'))
     points = [i.split(":") for i in points]
     index = 0
@@ -259,7 +246,6 @@ def pick_point(unique_id):
 
 
 def pick_movies(unique_id):
-    util = RedisUtil()
     movies = get_data(unique_id)
     return movies[:15]
 
