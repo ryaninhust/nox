@@ -56,13 +56,11 @@
       };
 
       MovieView.prototype.hackOverflow = function() {
-        var _this = this;
-
-        return _.defer(function() {
-          _this.el.offsetHeight;
-          _this.$el.css('overflow', 'hidden');
-          return _this.$el.css('border-radius', _this.$el.css('border-radius'));
-        });
+        return this.$el.animate({
+          'margin-top': '-=1px'
+        }, 'fast').animate({
+          'margin-top': '+=1px'
+        }, 'fast');
       };
 
       MovieView.prototype.renderLoading = function() {

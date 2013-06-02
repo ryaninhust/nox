@@ -35,8 +35,8 @@
         </script>
 
         <script id="movie-panel-tmpl" type="template">
-          <div class="cover">
-            <img src="{{= cover_url}}" alt="{{= name}}" />
+          <div class="cover" style="overflow: hidden;border-radius:50%;">
+            <img src="{{= cover_url}}" alt="{{= name}}" style="border-radius:50%;"/>
           </div>
           <div class="info" data-id="{{= id}}">
             <div class="info-cover">
@@ -105,9 +105,9 @@
             </blockquote>
           </div>
           <div class="select">
-            <button class="unknow" type="submit" name="result" value="0">不知道</button>
+            <button class="unknow" type="submit" name="result" value="2">不知道</button>
             <button class="yes" type="submit" name="result" value="1">是的</button>
-            <button class="no" type="submit" name="result" value="-1">不是的</button>
+            <button class="no" type="submit" name="result" value="0">不是的</button>
           </div>
         </script>
 

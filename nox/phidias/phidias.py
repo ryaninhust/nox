@@ -235,6 +235,8 @@ def pick_point(unique_id):
     points = list(util.r.smembers(unique_id + 'fs'))
     points = [i.split(":") for i in points]
     upper = len(points)
+    if upper == 0:
+        return 0
     while(1):
         i = points[random.randrange(0, upper)]
         if i[1] == 'None':
