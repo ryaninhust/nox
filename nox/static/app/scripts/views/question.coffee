@@ -25,7 +25,7 @@ define [
       hideUp: =>
         @$el.addClass('hide-up')
       showDown: =>
-        if @currentQuestion.get('load')
+        if not @currentQuestion.get('uid')
           return
         @$el.removeClass('hide-up')
         

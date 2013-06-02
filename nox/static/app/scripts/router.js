@@ -13,15 +13,11 @@ function(Backbone, MainPage) {
     var Router = Backbone.Router.extend({
         routes: {
             '': 'index',
-            'restart': 'restart'
         },
         index: function() {
           this._initPage()
           var mainPage = new MainPage()
           pageContainer.append(mainPage.render().el)
-        },
-        restart: function() {
-          this.navigate('')
         },
         _initPage: function() {
           pageContainer.empty()

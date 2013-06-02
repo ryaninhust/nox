@@ -68,5 +68,5 @@ define [
         @
 
       restart: (e)->
-        app.router.navigate('restart')
+        app.trigger('restart')
 

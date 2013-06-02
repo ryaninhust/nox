@@ -1,0 +1,53 @@
+mongod --help for help and startup options
+Sun Jun  2 07:35:05 [initandlisten] MongoDB starting : pid=8025 port=27017 dbpath=/data/db/ 64-bit host=localhost
+Sun Jun  2 07:35:05 [initandlisten] db version v2.2.3, pdfile version 4.5
+Sun Jun  2 07:35:05 [initandlisten] git version: nogitversion
+Sun Jun  2 07:35:05 [initandlisten] build info: Linux fyan 3.7.5-1-ARCH #1 SMP PREEMPT Mon Jan 28 10:03:32 CET 2013 x86_64 BOOST_LIB_VERSION=1_52
+Sun Jun  2 07:35:05 [initandlisten] options: {}
+Sun Jun  2 07:35:05 [initandlisten] journal dir=/data/db/journal
+Sun Jun  2 07:35:05 [initandlisten] recover : no journal files present, no recovery needed
+Sun Jun  2 07:35:05 [websvr] admin web console waiting for connections on port 28017
+Sun Jun  2 07:35:05 [initandlisten] waiting for connections on port 27017
+Sun Jun  2 07:36:16 [initandlisten] connection accepted from 192.168.1.229:60797 #1 (1 connection now open)
+Sun Jun  2 07:36:16 [conn1] end connection 192.168.1.229:60797 (0 connections now open)
+Sun Jun  2 07:36:25 [initandlisten] connection accepted from 192.168.1.229:60916 #2 (1 connection now open)
+Sun Jun  2 07:39:43 [conn2] end connection 192.168.1.229:60916 (0 connections now open)
+Sun Jun  2 07:42:16 [initandlisten] connection accepted from 127.0.0.1:44108 #3 (1 connection now open)
+Sun Jun  2 07:42:16 [conn3] end connection 127.0.0.1:44108 (0 connections now open)
+Sun Jun  2 07:42:43 [initandlisten] connection accepted from 127.0.0.1:44220 #4 (1 connection now open)
+Sun Jun  2 07:43:39 [conn4] end connection 127.0.0.1:44220 (0 connections now open)
+Sun Jun  2 07:43:42 [initandlisten] connection accepted from 127.0.0.1:44608 #5 (1 connection now open)
+Sun Jun  2 07:44:07 [conn5] end connection 127.0.0.1:44608 (0 connections now open)
+Sun Jun  2 07:44:09 [initandlisten] connection accepted from 127.0.0.1:44867 #6 (1 connection now open)
+Sun Jun  2 07:44:27 [conn6] end connection 127.0.0.1:44867 (0 connections now open)
+Sun Jun  2 07:45:24 [initandlisten] connection accepted from 127.0.0.1:45470 #7 (1 connection now open)
+Sun Jun  2 07:45:38 [conn7] end connection 127.0.0.1:45470 (0 connections now open)
+Sun Jun  2 07:45:40 [initandlisten] connection accepted from 127.0.0.1:45684 #8 (1 connection now open)
+Sun Jun  2 07:45:45 [conn8] end connection 127.0.0.1:45684 (0 connections now open)
+Sun Jun  2 07:46:22 [initandlisten] connection accepted from 127.0.0.1:45966 #9 (1 connection now open)
+Sun Jun  2 07:46:27 [conn9] end connection 127.0.0.1:45966 (0 connections now open)
+Sun Jun  2 07:46:30 [initandlisten] connection accepted from 127.0.0.1:46136 #10 (1 connection now open)
+Sun Jun  2 07:46:32 [conn10] end connection 127.0.0.1:46136 (0 connections now open)
+Sun Jun  2 07:46:34 [initandlisten] connection accepted from 127.0.0.1:46276 #11 (1 connection now open)
+Sun Jun  2 07:46:35 [conn11] end connection 127.0.0.1:46276 (0 connections now open)
+Sun Jun  2 07:47:05 [initandlisten] connection accepted from 127.0.0.1:46527 #12 (1 connection now open)
+Sun Jun  2 07:47:13 [conn12] end connection 127.0.0.1:46527 (0 connections now open)
+Sun Jun  2 07:47:23 [initandlisten] connection accepted from 127.0.0.1:46747 #13 (1 connection now open)
+Sun Jun  2 07:47:32 [conn13] end connection 127.0.0.1:46747 (0 connections now open)
+Sun Jun  2 07:47:34 [initandlisten] connection accepted from 127.0.0.1:46949 #14 (1 connection now open)
+Sun Jun  2 07:47:41 [conn14] end connection 127.0.0.1:46949 (0 connections now open)
+Sun Jun  2 07:47:42 [initandlisten] connection accepted from 127.0.0.1:47133 #15 (1 connection now open)
+Sun Jun  2 07:48:07 [conn15] end connection 127.0.0.1:47133 (0 connections now open)
+Sun Jun  2 07:48:09 [initandlisten] connection accepted from 127.0.0.1:47390 #16 (1 connection now open)
+Sun Jun  2 07:48:26 [conn16] end connection 127.0.0.1:47390 (0 connections now open)
+Sun Jun  2 07:48:28 [initandlisten] connection accepted from 127.0.0.1:47785 #17 (1 connection now open)
+Sun Jun  2 07:48:29 [conn17] end connection 127.0.0.1:47785 (0 connections now open)
+Sun Jun  2 07:48:41 [initandlisten] connection accepted from 127.0.0.1:48023 #18 (1 connection now open)
+Sun Jun  2 07:48:43 [conn18] info DFM::findAll(): extent 0:1300000 was empty, skipping ahead. ns:test.tops
+Sun Jun  2 07:49:03 [conn18] end connection 127.0.0.1:48023 (0 connections now open)
+Sun Jun  2 07:49:04 [initandlisten] connection accepted from 127.0.0.1:48266 #19 (1 connection now open)
+Sun Jun  2 07:49:08 [conn19] end connection 127.0.0.1:48266 (0 connections now open)
+Sun Jun  2 07:49:09 [initandlisten] connection accepted from 127.0.0.1:48379 #20 (1 connection now open)
+Sun Jun  2 07:49:09 [conn20] end connection 127.0.0.1:48379 (0 connections now open)
+Sun Jun  2 07:49:12 [initandlisten] connection accepted from 127.0.0.1:48476 #21 (1 connection now open)
+Sun Jun  2 07:49:12 [conn21] end connection 127.0.0.1:48476 (0 connections now open)
