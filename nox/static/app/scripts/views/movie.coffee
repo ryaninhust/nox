@@ -24,17 +24,21 @@ define [
       initialize: ()->
         @movies = new Movies()
         @movies.on('changed', @render)
+        app.on 'loading', @rolling
         #@openMoviePanel = _.debounce @openMoviePanel
         @
 
       setUrl: (url)=>
         @url = url
-        @$el.find('.cover').addClass('roll')
+        @rolling()
         @movies.fetch(url)
+
+      rolling: =>
+        @$el.find('.cover').addClass('roll')
 
       renderLoading: =>
         @$el.html(@template(loadData))
-        @$el.find('.cover').addClass('roll')
+        @rolling()
         @delegateEvents()
         @
 

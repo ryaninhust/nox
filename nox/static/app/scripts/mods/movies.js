@@ -70,8 +70,12 @@
       };
 
       Movies.prototype.bestOne = function() {
-        if (this.movieList.length) {
-          return this.movieList[0];
+        var index, len;
+
+        len = this.movieList.length;
+        if (len) {
+          index = len * Math.random() | 0;
+          return this.movieList[index];
         } else {
           return defaultMoive;
         }

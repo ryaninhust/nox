@@ -42,6 +42,7 @@ define [
         @
 
       getQuestion: (answer={answer: -1})->
+        app.trigger('loading')
         $.post('/questions/', answer)
           .done((r)=>
             app.uid = r.uid

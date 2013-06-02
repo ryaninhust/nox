@@ -52,8 +52,10 @@ define [
           e.id not in @movieIdTrash
 
       bestOne: ->
-        if @movieList.length
-          @movieList[0]
+        len = @movieList.length
+        if len
+          index = len * Math.random() | 0
+          @movieList[index]
         else
           defaultMoive
 
