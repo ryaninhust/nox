@@ -37,8 +37,12 @@ define [
         @$el.find('.cover').addClass('roll')
 
       hackOverflow: =>
-        _.defer =>
-          @el.offsetHeight
+        @$el
+          .animate({'margin-top': '-=1px'}, 'fast')
+          .animate({'margin-top': '+=1px'}, 'fast')
+
+        #_.defer =>
+          #@el.offsetHeight
 
       renderLoading: =>
         @$el.html(@template(loadData))

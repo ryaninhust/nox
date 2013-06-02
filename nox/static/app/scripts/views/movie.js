@@ -56,11 +56,11 @@
       };
 
       MovieView.prototype.hackOverflow = function() {
-        var _this = this;
-
-        return _.defer(function() {
-          return _this.el.offsetHeight;
-        });
+        return this.$el.animate({
+          'margin-top': '-=1px'
+        }, 'fast').animate({
+          'margin-top': '+=1px'
+        }, 'fast');
       };
 
       MovieView.prototype.renderLoading = function() {
