@@ -15,6 +15,7 @@ mountain_data_key = '1'
 dpark = dpark.context.DparkContext(master='local')
 
 
+util = RedisUtil()
 class SplitCiterion(object):
     pass
 
@@ -122,92 +123,78 @@ def make_filter(feature, feature_point, data, np):
 
 
 def get_split_feature(unique_id, Util=RedisUtil):
-    util = Util()
     return util.get_split_feature(unique_id)
 
 
 def get_data(unique_id, Util=RedisUtil):
-    util = Util()
     return util.get_data(unique_id)
 
 
 def get_filter_point(unique_id, Util=RedisUtil):
-    util = Util()
     return util.get_filter_points(unique_id)
 
 
 def append_filter_point(unique_id, points, Util=RedisUtil):
-    util = Util()
     util.append_filter_points(unique_id, points)
 
 
 def set_data(unique_id, data, Util=RedisUtil):
-    util = Util()
     util.set_data(unique_id, data)
 
 
 def set_split_feature(unique_id, feature_point, Util=RedisUtil):
-    util = Util()
     util.set_split_feature(unique_id, feature_point)
 
 
 def get_top_points(feature_list, unique_id, Util=RedisUtil):
-    util = Util()
     all_feature_points = []
     for feature in feature_list:
         feature_set = util.get_types(unique_id, feature)
         feature_top = [(feature, i) for i in get_phidias_point(feature_set)]
         all_feature_points += feature_top
     all_feature_points.sort(key=lambda x: x[1][1], reverse=True)
-    return all_feature_points[:30]
+    return all_feature_points[:100]
 
 
 def set_feature_points(unique_id, points):
-    util = RedisUtil()
     util.r.delete(unique_id + 'fs')
     for i in points:
         util.r.sadd(unique_id + 'fs', i)
 
 
 def get_data(unique_id, Util=RedisUtil):
-    util = Util()
     return util.get_data(unique_id)
 
 
 def get_feature_points(unique_id):
-    util = RedisUtil()
     return util.r.smembers(unique_id + 'fs')
 
 
 def get_feature_point(unique_id):
-    util = RedisUtil()
     return util.r.get(unique_id + 'f')
 
 
 def set_feature_point(unique_id, point):
-    util = RedisUtil()
     util.r.set(unique_id + 'f', point)
 
 
 def append_filter_points(unique_id):
     point = get_feature_point(unique_id)
     a = tuple(point.split(':'))
-    util = RedisUtil()
     util.r.sadd(unique_id + 'fp', "%s:%s" % (a[0], a[1]))
 
 
 def get_filter_points(unique_id):
-    util = RedisUtil()
     return util.r.smembers(unique_id + 'fp')
 
 
 def climax(unique_id, np):
     if np == -1:
-        util = RedisUtil()
         data = util.get_data('1')
         util.set_data(unique_id, data)
         util.r.delete(unique_id+'fp')
         feature_points = get_top_points(feature_list, unique_id)
+        print len(feature_points)
         feature_points = ["%s:%s" % (i[0], i[
             1][0]) for i in feature_points]
         set_feature_points(unique_id, feature_points)
@@ -218,10 +205,7 @@ def climax(unique_id, np):
         test = get_filter_points(unique_id)
         test = [i.split(':') for i in test]
         test = ["%s:%s" % (i[0], i[1]) for i in test]
-        print test
         filtered = list(set(feature_points) - set(test))
-        print feature_points
-        print filtered
         set_feature_points(unique_id, filtered)
         return None
     else:
@@ -243,15 +227,14 @@ def climax(unique_id, np):
 
 
 def pick_point(unique_id):
-    util = RedisUtil()
     points = list(util.r.smembers(unique_id + 'fs'))
     points = [i.split(":") for i in points]
-    index = 0
+    upper = len(points)
+    print upper
     while(1):
-        i = points[index]
+        i = points[random.randrange(0,upper)]
         if i[1] == 'None':
             util.r.sadd(unique_id + 'fp', "%s:%s" % tuple(i))
-            index += 1
             continue
         else:
             set_feature_point(unique_id, "%s:%s" % tuple(i))
@@ -259,7 +242,6 @@ def pick_point(unique_id):
 
 
 def pick_movies(unique_id):
-    util = RedisUtil()
     movies = get_data(unique_id)
     return movies[:15]
 
@@ -267,8 +249,10 @@ if __name__ == "__main__":
     s = datetime.datetime.now()
     climax('2', -1)
     pick_point('2')
-    climax('2', 2)
+    climax('2', 1)
     # print pick_movies('1')
+    pick_point('2')
+    climax('2', 0)
     pick_point('2')
     e = datetime.datetime.now()
     print e-s
