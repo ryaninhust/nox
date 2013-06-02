@@ -59,9 +59,9 @@
         var _this = this;
 
         return _.defer(function() {
+          _this.el.offsetHeight;
           _this.$el.css('overflow', 'hidden');
-          _this.$el.css('border-radius', _this.$el.css('border-radius'));
-          return _this.el.offsetHeight;
+          return _this.$el.css('border-radius', _this.$el.css('border-radius'));
         });
       };
 
