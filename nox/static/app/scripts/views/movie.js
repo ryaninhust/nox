@@ -20,6 +20,7 @@
         this.openMoviePanel = __bind(this.openMoviePanel, this);
         this.render = __bind(this.render, this);
         this.renderLoading = __bind(this.renderLoading, this);
+        this.rolling = __bind(this.rolling, this);
         this.setUrl = __bind(this.setUrl, this);        _ref = MovieView.__super__.constructor.apply(this, arguments);
         return _ref;
       }
@@ -39,18 +40,23 @@
       MovieView.prototype.initialize = function() {
         this.movies = new Movies();
         this.movies.on('changed', this.render);
+        app.on('loading', this.rolling);
         return this;
       };
 
       MovieView.prototype.setUrl = function(url) {
         this.url = url;
-        this.$el.find('.cover').addClass('roll');
+        this.rolling();
         return this.movies.fetch(url);
+      };
+
+      MovieView.prototype.rolling = function() {
+        return this.$el.find('.cover').addClass('roll');
       };
 
       MovieView.prototype.renderLoading = function() {
         this.$el.html(this.template(loadData));
-        this.$el.find('.cover').addClass('roll');
+        this.rolling();
         this.delegateEvents();
         return this;
       };

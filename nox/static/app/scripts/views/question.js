@@ -70,6 +70,7 @@
             answer: -1
           };
         }
+        app.trigger('loading');
         return $.post('/questions/', answer).done(function(r) {
           app.uid = r.uid;
           return _this.addQuestion(r);
