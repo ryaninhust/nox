@@ -60,7 +60,8 @@
 
         return _.defer(function() {
           _this.$el.css('overflow', 'hidden');
-          return _this.$el.css('border-radius', _this.$el.css('border-radius'));
+          _this.$el.css('border-radius', _this.$el.css('border-radius'));
+          return _this.el.offsetHeight;
         });
       };
 

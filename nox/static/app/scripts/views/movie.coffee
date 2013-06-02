@@ -40,6 +40,7 @@ define [
         _.defer =>
           @$el.css('overflow', 'hidden')
           @$el.css('border-radius', @$el.css('border-radius'))
+          @el.offsetHeight
 
       renderLoading: =>
         @$el.html(@template(loadData))
