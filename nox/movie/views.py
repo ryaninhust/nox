@@ -28,33 +28,33 @@ r = redis.StrictRedis(host='localhost')
 
 def ask_problem(feature, value):
     if feature == "language":
-        return u"这部电影是" + value + u"电影吗？"
+        return u"你要猜的电影是" + value + u"电影吗？"
     elif feature == "countries":
-        return u"这部电影是来自" + value + u"的吗？"
+        return u"你要猜的这部电影是来自" + value + u"的吗？"
     elif feature == "tags":
-        return u"这部电影和" + value + u"有关的吗？"
+        return u"你要猜的这部电影和" + value + u"有关的吗？"
     elif feature == "rate" and float(value) > 8:
-        return u"这部电影是否广受赞誉？"
+        return u"你要猜的这部电影是否广受赞誉？"
     elif feature == "rate" and float(value) > 9:
-        return u"这部电影是否非常经典？"
+        return u"你要猜的这部电影是否非常经典？"
     elif feature == "people" and int(value) < 100:
-        return u"这部电影是否非常冷门"
+        return u"你要猜的这部电影是否非常冷门"
     elif feature == "people" and int(value) > 30000:
-        return u"这部电影是否非常热门"
+        return u"你要猜的这部电影是否非常热门"
     elif feature == "editors":
-        return u"这部电影是不是" + value + u"作为编剧"
+        return u"你要猜的这部电影是不是" + value + u"作为编剧"
     elif feature == "directors":
-        return u"这部电影难道是由" + value + u"拍摄的"
+        return u"你要猜的这部电影难道是由" + value + u"拍摄的"
     elif feature == "actors":
-        return u"这部电影有没有" + value + u"参与出演"
+        return u"你要猜的这部电影有没有" + value + u"参与出演"
     elif feature == "date":
-        return u"这是一部" + value + u"左右拍摄出的电影吗"
+        return u"你要猜的这是一部" + value + u"左右拍摄出的电影吗"
     elif feature == "length" and int(value) > 150:
-        return u"这是一部时间很长的电影？"
+        return u"你要猜的是一部时间很长的电影？"
     elif feature == "length" and int(value) < 45:
-        return u"这是个短片？"
+        return u"这要猜的是个短片？"
     elif feature == "types":
-        return u"这是个" + value + u"片？"
+        return u"你要猜的是个" + value + u"片？"
     else:
         return u"我不知道该问什么了。。"
 
