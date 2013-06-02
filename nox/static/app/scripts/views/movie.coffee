@@ -29,6 +29,7 @@ define [
 
       setUrl: (url)=>
         @url = url
+        @$el.find('.cover').addClass('roll')
         @movies.fetch(url)
 
       renderLoading: =>
@@ -45,12 +46,12 @@ define [
         @
 
       openMoviePanel: =>
-        @$el.find('.back-panel').show()
+        @$el.find('.back-panel').show().addClass('slide-in')
         app.trigger('panel:show')
         @
 
       closeMoviePanel: =>
-        @$el.find('.back-panel').hide()
+        @$el.find('.back-panel').hide().removeClass('slide-in')
         app.trigger('panel:hide')
         @
 
